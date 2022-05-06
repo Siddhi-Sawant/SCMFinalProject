@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" th:href="@{/css/adminstyle3.css}">
+<title>Smart Contact Manager</title>
+
+</head>
+<body>
+	<section class="banner3">
+		<div class="container">
+		<div class="row">
+			<div class="mycard">
+              
+				<form th:action="@{/adminregister}" method="Post" th:object="${admin}">
+				    <h3 style="text-align: center; margin-bottom: 5%;">Register Here!!</h3>
+					<div class="form-group row">
+						<label for="colFormLabel" class="col-sm-4 col-form-label col-form-label-lg">Admin Name</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" name="adminName" id="colFormLabel"
+								placeholder="Enter name">
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="colFormLabel" class="col-sm-4 col-form-label col-form-label-lg">Email Address</label>
+						<div class="col-sm-7">
+							<input type="email" class="form-control" name="adminEmail" id="colFormLabel"
+								placeholder="Enter name">
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="colFormLabel" class="col-sm-4 col-form-label col-form-label-lg"> Password</label>
+						<div class="col-sm-7">
+							<input type="password" class="form-control" name="password" id="colFormLabel"
+								placeholder="Enter name">
+						</div>
+					</div>
+					<input type="submit" value="submit" class="btn btn-primary" style="margin-left: 35%; border-radius: 10px;">
+					<input type="reset" value="Reset" class="btn btn-primary" style="border-radius: 10px;">
+				</form>
+			</div>
+		</div>
+	</div>	
+	</section>
+</body>
+
+</html>

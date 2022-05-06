@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<section class="banner">
+		<div class="container">
+		<div class="row">
+			<div class="login1">
+			
+			<div th:if="${session.message2}" th:classappend="${session.message2.messageType}" class="alert" role="alert">
+                   <p th:text="${session.message2.content}"></p>
+                   <th:block th:text="${#session.removeAttribute('message2')}"/>
+                   </div>
+				<h1 style="text-align: center;">Welcome</h1>
+				<h6 style="text-align: center; margin-bottom: 4%">To Your Account</h6>
+				
+				
+				
+				<form th:action="@{/checkLogin}" method="post">
+                   
+                   
+					<div class="form-group row">
+					<div class="col-sm-5">
+					   <img alt="" src="/img/login2.jpg">
+					   </div>
+					   <div class="col-sm-7">
+						<label for="exampleInputEmail1">User Name</label> <input
+							type="text"
+							 class="form-control" 
+							 id="exampleInputEmail1"
+							aria-describedby="emailHelp" 
+							name="userName" 
+							th:v> 
+							<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+					       
+					       
+						<label for="exampleInputPassword1">Password</label> <input
+							type="password" class="form-control" id="exampleInputPassword1" name="password">
+					
+						<a href="pass">Forgot Password</a>
+							
+							
+					</div>
+                   </div>
+                   <div class="row">
+					<button type="submit" class="btn btn-primary" style="width: 90px; border-radius: 15px;" >Login</button>
+					<label style="color:green;margin-left: 3%; font-size:medium; margin-top: 3%;">Not a member?</label><br>
+					<a href="signup" style="color: blue;font-size: small;margin-left: 1%; margin-top: 3%;">Create Account</a></div>
+				</form>
+			</div>
+		</div>
+		</div>
+	</section>
+
+ <section id="footer">
+       <span >© 2022 All Rights Reserved. </span>
+      </section>
+       
+ 
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<section>
+ 
+ <div class="title">
+  <h2 align="center" style="margin-left: 35%;" >View Contacts</h2>
+  </div>
+  <div class="container" >
+     <table class="table" style="width:100%; margin-left: 8%;">
+  <thead class="thead-light" style="text-align: center;" >
+    <tr>
+      <th scope="col" >contactId</th>
+      <th scope="col">Person Name</th>
+      <th scope="col">Nick Name</th>
+      <th scope="col">Mobile No</th>
+       <th scope="col">Email </th>
+       <th scope="col">Person Image</th>
+        <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="contact:${contactObj}">
+      <td th:text="${contact.contactId}"></td>
+      <td th:text="${contact.personName}"></td>
+      <td th:text="${contact.nickName}"></td>
+      <td th:text="${contact.mobileNo}"></td>
+      <td th:text="${contact.personEmail}"></td>
+      <td th:text="${contact.personImage}"></td>
+      <td><button type="button" class="btn btn-primary"><a href="#" style="color:white;">Update</a></button> | <button type="button" class="btn btn-danger"><a href="#" style="color:white; text-decoration: none;">Delete</a></button></td>
+    </tr>
+   
+  </tbody>
+</table>
+ 
+ <div class="page" style="margin-left: 50%;">
+<nav aria-label="Page navigation example" >
+  <ul class="pagination" >
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li> 
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+</div>
+  </div>
+</section>
+</body>
+</html>

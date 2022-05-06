@@ -1,0 +1,89 @@
+@charset "ISO-8859-1";
+
+.bg-color
+{
+	background:	whitesmoke;
+	color:black;
+	
+}
+
+.banner3
+{
+	width: 100%;
+	height:97vh;
+	background: url("../img/banner2.jpg");
+	background-size:cover;
+	color:white;
+	opacity:0.6;
+	
+}
+
+.mycard
+{
+	margin-left: 25%;
+	margin-top: 15%;
+	background-color: #FFFFF0;
+	color: black;
+	width:50%;
+	padding: 20px 40px 20px 40px;
+	border-radius: 30px ;
+}
+
+.login1
+{
+	background-color:#FFFFF0;
+	padding: 30px;
+	color:black;
+	margin-left: 23%;
+    margin-top: 10%;
+    border-radius:15px;
+    opacity:1;
+}
+.login1 button
+{
+	margin-left: 40%;
+}
+
+#footer
+{
+	margin-left: 45%;
+}
+
+.sidebar
+{
+	
+	margin-top:0;
+	width:18%;
+	background:#A9A9A9;
+	height: 100%;
+	position:fixed;
+	padding-top:8%;
+  
+}
+
+.sidebar a
+{
+	
+	display: block;
+	width: 100%;
+	color:white;
+	font-size: large;
+	padding-bottom: 20px;
+}
+
+.sidebar a:hover
+{
+	background-color:#F0F8FF;
+	color:black;
+}
+
+.content
+{
+	margin-left:20%;
+	position:absolute;
+}
+
+.title1
+{
+	margin-top: 14%;
+}

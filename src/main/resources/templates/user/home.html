@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Smart Contact Manager</title>
+</head>
+<body>
+
+<section>
+   <h2 style="margin-top: 20%;">Welcome <small><span th:text="${session.user.userName}"></span></small></h2>
+   <div>
+     <img alt="" src="../img/cm2.jpg" style="height:300px; width: 400px; border-radius: 15px;">
+   </div>
+    <div class="divider1"></div>
+</section>
+</body>
+</html>
