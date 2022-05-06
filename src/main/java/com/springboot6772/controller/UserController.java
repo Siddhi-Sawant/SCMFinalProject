@@ -51,8 +51,9 @@ public class UserController
 	UserRepo userRepo;
 	
 	@GetMapping("/home")
-	public String home()
+	public String home(Model m)
 	{
+		m.addAttribute("title", "Smart Contact Manager");
 		return "user/home";
 	}
 
