@@ -3,51 +3,65 @@
 	th:replace="user/base::Layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>View Contacts</title>
 </head>
 <body>
-<section>
- 
- <div class="title">
-  <h2 align="center" style="margin-left: 35%;" >View Contacts</h2>
-  </div>
-  <div class="container" >
-     <table class="table" style="width:100%; margin-left: 8%;">
-  <thead class="thead-light" style="text-align: center;" >
-    <tr>
-      <th scope="col" >contactId</th>
-      <th scope="col">Person Name</th>
-      <th scope="col">Nick Name</th>
-      <th scope="col">Mobile No</th>
-       <th scope="col">Email </th>
-       <th scope="col">Person Image</th>
-        <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr th:each="contact:${contactObj}">
-      <td th:text="${contact.contactId}"></td>
-      <td th:text="${contact.personName}"></td>
-      <td th:text="${contact.nickName}"></td>
-      <td th:text="${contact.mobileNo}"></td>
-      <td th:text="${contact.personEmail}"></td>
-      <td th:text="${contact.personImage}"></td>
-      <td><button type="button" class="btn btn-primary"><a href="#" style="color:white;">Update</a></button> | <button type="button" class="btn btn-danger"><a href="#" style="color:white; text-decoration: none;">Delete</a></button></td>
-    </tr>
-   
-  </tbody>
-</table>
- 
- <div class="page" style="margin-left: 50%;">
-<nav aria-label="Page navigation example" >
-  <ul class="pagination" >
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li> 
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-  </ul>
-</nav>
-</div>
-  </div>
-</section>
+	<section>
+	  
+	 <div class="card1-body">
+		<div class="title">
+		 <a href="/addcontact" style="text-decoration: none; margin-left: 6%;font-size: large;"><i class="fa-solid fa-circle-arrow-left"></i> Add Contact</a>
+			<h2 align="center" style="margin-left:10%; margin: 0 0 2% 0;">Your Contacts</h2>
+		</div>
+		<div class="container">
+			<table class="table table-striped" style="width: 100%;  border-radius: 10px; margin-left: 3%;">
+				<thead  style="text-align: center; ">
+					<tr>
+
+						<th scope="col">Person Name</th>
+						<th scope="col">Nick Name</th>
+						<th scope="col">Mobile No</th>
+						<th scope="col">Email</th>
+						
+						<th scope="col">Person Image</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="contact:${contactObj}">
+
+						<td th:text="${contact.personName}"></td>
+						<td th:text="${contact.nickName}"></td>
+						<td th:text="${contact.mobileNo}"></td>
+						<td th:text="${contact.personEmail}"></td>
+						
+						<td > 
+						<img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact.personImage}}" alt="prfile photo" />
+						
+						<span th:text="${contact.personImage}"></span></td>
+						<td><!-- <button type="button" class="btn btn-primary"> -->
+								<a	th:href="@{/editContact{contactId}(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color:blue;"><i class="fa-solid fa-pen-to-square"></i>Edit</a> | 
+							<!-- <button type="button" class="btn btn-danger"> -->
+								<a th:href="@{/deleteContact(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color: blue;"><i class="fa-solid fa-trash-can"></i> Delete</a>
+							</td>
+					</tr>
+
+				</tbody>
+			</table>
+			</div>
+			</div>
+
+			<div class="page" style="margin-left: 44%; margin-bottom: 3%;">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		
+		
+	</section>
 </body>
 </html>

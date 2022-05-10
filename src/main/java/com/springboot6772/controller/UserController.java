@@ -16,6 +16,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,6 +51,8 @@ public class UserController
 	@Autowired
 	UserRepo userRepo;
 	
+
+	
 	@GetMapping("/home")
 	public String home(Model m)
 	{
@@ -72,20 +75,21 @@ public class UserController
 		model.addAttribute("contact", new Contact());
 		return  "user/addcontact"; }
 
-	//@PostMapping("/add_contact{user1}")
-	@PostMapping("/add_contact")
-	@ResponseBody
-	public String add_contact(@ModelAttribute Contact contact,Principal principle,
+	@PostMapping("/add_contact{userId}")
+	//@PostMapping("/add_contact")
+	public String add_contact(@ModelAttribute Contact contact,@PathVariable("userId") Integer userId,
 			@RequestParam("person_Image")  MultipartFile file,Model model,HttpSession session)throws IOException
 	{
+		
+		User user1=this.userservice.getUserByUserId(userId);
 		try 
 		{
-			//System.out.println("----------------------------"+user1);
-			System.out.println("------------------------------message 0");
+			
 			if(file.isEmpty())
 			{
 
 				System.out.println("File is empty");
+				contact.setPersonImage("default.png");
 				System.out.println("-----------------------------message 1");
 			}
 			else
@@ -97,21 +101,13 @@ public class UserController
 				Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
 				System.out.println("File is uploaded");
 			}
-			//contact.setUser(user1);
+			user1.getContacts().add(contact);
+			
+			contact.setUsers(user1);
 			this.contactservice.addContact(contact);
-			
-            
-//			User user1=userRepo.getById(user.getUserId());
-//			contact.setUser(user1);
-			
-			//user.getContacts().add(contact);
-			contact.getUsers().getUserId();
-			
-			System.out.println("-----------------------------message 3");
-			System.out.println("Added to database");
-
-			System.out.println("added to database");
-			session.setAttribute("message1", new Message("Contact added successfully","alert-success"));
+					
+		
+			session.setAttribute("message", new Message("Contact added successfully","alert-success"));
 			
 		}
 		catch(Exception e)
@@ -119,14 +115,14 @@ public class UserController
            System.out.println(e);
 		}
 		
-		return "user/addcontact";
+		return "redirect:/viewContacts{userId}";
 	}
 	
 
-	@GetMapping("/viewContacts")
-	public String viewContacts(Model model)
+	@GetMapping("/viewContacts{userId}")
+	public String viewContacts(@PathVariable("userId") int userId,   Model model)
 	{
-		List<Contact> contactDetails=this.contactservice.getAllContacts();
+		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
 		model.addAttribute("contactObj",contactDetails);
 		return "user/ViewContacts";
 	}
@@ -139,6 +135,99 @@ public class UserController
 		session.setAttribute("message", new Message("File size is greater than 1MB","alert-danger"));
 		return "user/addcontact";
 	}
+	
+	@GetMapping("/editContact{contactId}")
+	public String updateContact(Model  model,@PathVariable("contactId") int contactId)
+	{
+		model.addAttribute("title", "User Dashboard");
+		Contact contact=contactservice.getContactByContactId(contactId);
+		model.addAttribute("contact", contact);
+		return "user/editContact";
+	}
+    
+	@PostMapping("/saveUpdateContact{contactId}")
+	public String update_Contact(@ModelAttribute Contact contact,@PathVariable("contactId") int contactId,HttpSession session,@RequestParam("person_Image") MultipartFile file) throws IOException
+	{
+		if(file.isEmpty())
+		{
 
+			System.out.println("File is empty");
+			System.out.println("-----------------------------message 1");
+		}
+		else
+		{
+			System.out.println("-----------------------------message 2");
+			contact.setPersonImage(file.getOriginalFilename());
+			File saveFile= new ClassPathResource("static/img").getFile();
+			Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+			Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+			System.out.println("File is uploaded");
+		}
+		
+		this.contactservice.updateContact(contact, contactId);
+		session.setAttribute("message1", new Message("Contact Updated successfully","alert-success"));
+		
+		return "user/editContact";
+	}
+	
+//	@GetMapping("/deleteContact{contactId}")
+//	public String deleteContact(@PathVariable("contactId") int contactId)
+//	{
+//		System.out.println("ContactID------------------------------------------"+contactId);
+//		//System.out.println("UserId---------------------------"+userId);
+//		contactservice.deleteContactByContactId(contactId);
+//		return "redirect:/user/ViewContacts";
+//	}
+	
+	 @GetMapping("/deleteContact")
+	//@GetMapping("/viewContacts{userId}")
+	public String deleteContact(@RequestParam("contactId") Integer contactId, Model model)
+	{
+	   int userId= this.contactservice.getContactByContactId(contactId).getUsers().getUserId();
+	   
+	   System.out.println("User ID +++++++++++++++++++  "+userId);
+	   
+		contactservice.deleteContactByContactId(contactId);
+		//return "redirect:/user/ViewContacts";
+		//return "redirect:/viewContacts/{userId}";
+		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
+		model.addAttribute("contactObj",contactDetails);
+		return "user/ViewContacts";
+		//return "redirect:/viewContacts{userId}";
+	}
+	
+	@GetMapping("viewProfile")
+	public String viewProfile()
+	{
+		return "user/viewProfile";
+	}
+	
+//	@PostMapping("/saveProfilePhoto{userId}")
+//	public String saveProfileImage(@RequestParam("profile_image") MultipartFile file,@PathVariable("userId") int userId)
+//	{
+//		User user=this.userservice.getUserByUserId(userId);
+//		try 
+//		{
+//			
+//			if(file.isEmpty())
+//			{
+//
+//				System.out.println("File is empty");
+//				System.out.println("-----------------------------message 1");
+//			}
+//			else
+//			{
+//				System.out.println("-----------------------------message 2");
+//				user.setProfileImage(file.getOriginalFilename());
+//				File saveFile= new ClassPathResource("static/img").getFile();
+//				Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+//				Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+//				System.out.println("File is uploaded");
+//			}
+//			user.setProfileImage(null)
+//			
+//		return "";
+//	}
 
 }
+

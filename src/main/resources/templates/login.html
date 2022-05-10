@@ -13,6 +13,7 @@
 			<div class="login1">
 			
 			<div th:if="${session.message2}" th:classappend="${session.message2.messageType}" class="alert" role="alert">
+			     
                    <p th:text="${session.message2.content}"></p>
                    <th:block th:text="${#session.removeAttribute('message2')}"/>
                    </div>

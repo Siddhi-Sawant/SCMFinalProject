@@ -23,7 +23,7 @@
              <div class="mycard">
                   <h3 style="text-align: center;">Register Here!!</h3>
                   
-                  <form th:action="@{/do_register}", method="post" th:object="${user}">
+                  <form th:action="@{/do_register}", method="post" th:object="${user}" enctype="multipart/form-data" >
                   
                    
                    <div th:if="${session.message1}" th:classappend="${session.message1.messageType}" class="alert" role="alert">

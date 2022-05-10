@@ -26,31 +26,38 @@ public class AdminController
 	
 	@Autowired
 	userService userservice;
-	@RequestMapping("/admin")
+	
+	
+	@RequestMapping("/")
 	public String adminhome()
 	{
-		return "admin/adminhome";
-	}
-	
-	@GetMapping("/adminsignup")
-	public String adminsignup(Model model)
-	{
-		model.addAttribute("admin", new Admin());
-		return "admin/adminsignup";
-	}
-	
-	
-	
-	@PostMapping("/adminregister")
-	public String admin_signup(Model model,@ModelAttribute Admin admin)
-	{
+		Admin admin=new Admin();
+		admin.setAdminName("Admin");
+		admin.setPassword("Admin111");
 		this.adminService.addAdmin(admin);
 		return "admin/adminLogin";
 	}
 	
-	@GetMapping("/adminLogin")
-	public String adminlogin()
+//	@GetMapping("/adminsignup")
+//	public String adminsignup(Model model)
+//	{
+//		model.addAttribute("admin", new Admin());
+//		return "admin/adminsignup";
+//	}
+//	
+//	
+//	
+//	@PostMapping("/adminregister")
+//	public String admin_signup(Model model,@ModelAttribute Admin admin)
+//	{
+//		this.adminService.addAdmin(admin);
+//		return "admin/adminLogin";
+//	}
+//	
+	@GetMapping("/admin")
+	public String adminLogin(Model model)
 	{
+		model.addAttribute("title" ,"AdminLogin");
 		return "admin/adminLogin";
 	}
 	
@@ -66,9 +73,9 @@ public class AdminController
 		else
 		{
 			session.setAttribute("message", new Message("Invalid Username and Password ","alert-danger"));
-			return "admin/adminogin";
+			return "/admin";
 		}
-//		
+		
 	}
 	
 	@GetMapping("/admindash")

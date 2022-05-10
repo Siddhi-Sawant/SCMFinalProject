@@ -1,11 +1,17 @@
 package com.springboot6772.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot6772.entity.Admin;
 import com.springboot6772.entity.User;
+import com.springboot6772.service.AdminService;
 import com.springboot6772.service.ContactService;
 import com.springboot6772.service.userService;
 
@@ -26,6 +35,8 @@ public class NormalController
 	@Autowired
 	userService userservice;
 	
+	@Autowired
+	AdminService adminservice;
 	
 	
 	/*
@@ -44,6 +55,11 @@ public class NormalController
 	@GetMapping("/")
 	public String home(Model model)
 	{
+		Admin admin=new Admin();
+		admin.setAdminName("Admin");
+		admin.setPassword("Admin");
+		this.adminservice.addAdmin(admin);
+		
 		model.addAttribute("title","Smart Contact Manager");
 		return "home";
 	}
@@ -75,17 +91,19 @@ public class NormalController
 		 {
 			 session.setAttribute("user", user);
 			 session.setAttribute("user1", user1);
+			 session.setAttribute("userId", user1.getUserId());
 			 return "user/home";
 		 }
 		 else
 		 {
 	      session.setAttribute("message2", new Message("Invalid username and password !","alert-danger"));
+	    
 		 return "login";
 		 }
 		 
-		
-		
 	 }
+	 
+	 
 	 @GetMapping("/pass")
 	 public String forgotpass()
 	 {
@@ -107,6 +125,7 @@ public class NormalController
 			 {
 		    	
 				session.setAttribute("message1", new Message("User Is Registered Successfully !","alert-success"));
+				user.setProfileImage("default.png");
 				this.userservice.addUser(user);
 			
 				return "login";
@@ -130,6 +149,7 @@ public class NormalController
 		 return "signup";
 		 
 	 }
+	
 	
 //	@ModelAttribute
 //	public void addCommonData(Model m,Principal principal)

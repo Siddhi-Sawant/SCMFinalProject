@@ -9,4 +9,18 @@ public interface ContactService
   public void addContact(Contact contact);
   
   public List<Contact> getAllContacts();
+  
+  public List<Contact>  getContactByUserId(int userId);
+   
+  
+  //update contact
+  public Contact getContactByContactId(int contactId);
+  
+  public void updateContact(Contact contact,int contactId);
+
+  
+  //delete contact
+   public void deleteContactByContactId(int contactId);
+  
+  
 }

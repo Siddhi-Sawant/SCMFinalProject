@@ -24,9 +24,7 @@ public class Admin
 	@Column
 	private String adminName;
 	
-	@Column
-	private String adminEmail;
-   
+	
 	@Column
 	private String password;
 }

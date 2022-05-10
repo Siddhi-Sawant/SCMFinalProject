@@ -8,31 +8,32 @@
 </head>
 <body>
 	<section>
+
 		<div class="Card">
 			<div class="card-body">
-				<h2 class="text-center">Add Contact</h2>
+				<h2 class="text-center">Update Contact</h2>
 				<div class="container-fluid mt-1">
 					<div class="row">
 						<div class="col">
-						  <!--  <div th:if="${session.message1}" th:classappend="${session.message1.messageType}" class="alert" role="alert">
+						   <div th:if="${session.message1}" th:classappend="${session.message1.messageType}" class="alert" role="alert">
                    <p th:text="${session.message1.content}"></p>
                    <th:block th:text="${#session.removeAttribute('message1')}"/>
-                   </div> -->
+                   </div>
                    
-                    <div th:if="${session.message}" th:classappend="${session.message.messageType}" class="alert" role="alert">
+                    <!-- <div th:if="${session.message}" th:classappend="${session.message.messageType}" class="alert" role="alert">
                    <p th:text="${session.message.content}"></p>
                    <th:block th:text="${#session.removeAttribute('message')}"/>
-                   </div>
+                   </div> -->
         
                         
 						
-							<form th:action="@{/add_contact{userId}(userId=${session.userId})}" enctype="multipart/form-data" method="post" th:object="${contact}" class="mt-2">
+							<form th:action="@{/saveUpdateContact{contactId}(contactId=${contact.contactId})}" enctype="multipart/form-data" method="post" th:object="${contact}" class="mt-2">
 								<div class="col">
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<div class="input-group-text"><i class="fa-solid fa-user"></i></div>
 										</div>
-										<input type="text" class="form-control" name="personName"
+										<input type="text" class="form-control" name="personName" th:value="${contact.personName}"
 											id="inlineFormInputGroup" placeholder="Person Name">
 									</div>
 								</div>
@@ -42,7 +43,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text"><i class="fa-solid fa-user-group"></i></div>
 										</div>
-										<input type="text" class="form-control" name="nickName"
+										<input type="text" class="form-control" name="nickName" th:value="${contact.nickName}"
 											id="inlineFormInputGroup" placeholder="Nick Name">
 									</div>
 								</div>
@@ -52,7 +53,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text"><i class="fa-solid fa-mobile-screen-button"></i></div>
 										</div>
-										<input type="text" class="form-control" name="mobileNo"
+										<input type="text" class="form-control" name="mobileNo" th:value="${contact.mobileNo}"
 											id="inlineFormInputGroup" placeholder="Mobile Number">
 									</div>
 								</div>
@@ -62,7 +63,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text"><i class="fa-solid fa-envelope"></i></div>
 										</div>
-										<input type="text" class="form-control" name="personEmail"
+										<input type="text" class="form-control" name="personEmail" th:value="${contact.personEmail}"
 											id="inlineFormInputGroup" placeholder="Email Address">
 									</div>
 								</div>
@@ -72,7 +73,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text"><i class="fa-solid fa-briefcase"></i></div>
 										</div>
-										<input type="text" class="form-control" name="personWork"
+										<input type="text" class="form-control" name="personWork" th:value="${contact.personWork}"
 											id="inlineFormInputGroup" placeholder="Work">
 									</div>
 								</div>
@@ -93,12 +94,12 @@
 										<!-- <div class="input-group-prepend">
 											<div class="input-group-text"><i class="fa-solid fa-image"></i></div>
 										</div> -->
-										<input type="file" class="form-control" name="person_Image"
+										<input type="file" class="form-control" name="person_Image" th:value="${contact.personImage}"
 											id="inlineFormInputGroup" placeholder="Person Image" style="border-style: none;">
 									<!-- </div> -->
 								</div>
 								
-								<input type="submit" class="btn btn-secondary" value="Save" style="margin-top:3%; margin-left: 40%; font-size: large; border-radius: 10px;width: 20%;">
+								<input type="submit" class="btn btn-secondary" value="Update" style="margin-top:3%; margin-left: 40%; font-size: large; border-radius: 10px;width: 20%;">
 
 							</form>
 						</div>

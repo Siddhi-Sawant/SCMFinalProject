@@ -37,11 +37,12 @@ public class UserServiceImplementation implements userService
 		return this.userRepo.findAll();
 	}
 
-	
-	
-
-	
-
+	@Override
+	public User getUserByUserId(int userId) 
+	{
+		
+		return this.userRepo.findById(userId).get();
+	}
     
      
 }

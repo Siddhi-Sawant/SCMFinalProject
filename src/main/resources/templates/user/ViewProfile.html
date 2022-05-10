@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Profile</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+
+			
+				<label style="margin-top: 10%; font-size: large;"> My
+					Profile </label>
+				<div id="backColor">
+				  <form th:action="@{/do_register}" enctype="multipart/form-data" method="post" th:object="${user}">
+					<input type="file" id="profileImage" style="visibility: hidden;">
+					<label for="profileImage" name="profile_image"><img alt=""
+						src="../img/cm4.png"
+						style="height: 10%; width: 20%; margin-left: 23%; border-radius: 50%; margin-top: 3%;"></label></form>
+			
+			<h3 style="margin-left: 40%; text-transform: uppercase;">
+				<span th:text="${session.user.userName}"></span>
+			</h3>
+
+			<div class="card-body1">
+				<div class="table text-center ">
+					<table
+						style="width: 50%; font-size: large; padding: 20px; margin-left: 23%;">
+						<tbody>
+							<tr>
+								<td><strong>User Name: </strong></td>
+								<td th:text="${session.user.userName}"></td>
+							</tr>
+
+
+							<tr>
+								<td><strong>Email Address: </strong></td>
+								<td th:text="${session.user1.userEmail}"></td>
+							</tr>
+						</tbody>
+
+						<tr>
+							<td><strong>Mobile Number:</strong></td>
+							<td th:text="${session.user1.userContact}"></td>
+						</tr>
+						</tbody>
+
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+
+	</section>
+</body>
+</html>

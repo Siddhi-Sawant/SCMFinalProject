@@ -30,6 +30,10 @@
 	opacity:0.6;
 	
 }
+.banner1 button a:hover
+{
+	color: red;
+}
 #navbarSupportedContent ul li a:hover {
 	
     color:red;

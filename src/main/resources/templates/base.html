@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://thymeleaf.org" th:fragment="Layout(content)">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+	th:fragment="Layout(content)">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <!-- Bootstrap CSS library -->
+<!-- Bootstrap CSS library -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -26,47 +28,64 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
-	<link rel="stylesheet" th:href="@{/css/style.css}">
-    <title th:text="${title}">Smart Contact Manager</title>
-  </head>
-  <body >
-  
- <nav class="navbar navbar-expand-lg navbar-blue bg-color">
- 
-    <a class="navbar-brand" href="#" style="font-size: 25px;" >Smart Contact Manager</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-      <ul class="navbar-nav ml-auto" style="font-size: 20px;" >
-      <!--  <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="signup">SignUp</a>
-        </li> -->
-       <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="login">SignIn</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="about">About Us</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
-        </li> 
-       
-      
-      </ul>
-     
-    </div>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<title th:text="${title}">Smart Contact Manager</title>
+</head>
+<body>
 
-</nav>
-  
-    
-   
-  
-       <div th:replace="${content}"></div>
-  
-    
-  </body>
+	<nav class="navbar navbar-expand-lg navbar-blue bg-color">
+
+		<a class="navbar-brand" href="#" style="font-size: 25px;">Smart
+			Contact Manager</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto" style="font-size: 20px;">
+			
+				<li class="nav-item">
+				 <div class="dropdown">
+				  <a class="nav-link active dropdown-toggle"
+					data-toggle="dropdown"  aria-expanded="false" href="login">SignIn</a>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"  style="border: none;opacity:0.9;color: blue; background:#DCDCDC;">
+						<a class="dropdown-item" href="/login" style="color:blue;">User</a> 
+						<a class="dropdown-item" href="/admin" style="color:blue;">Admin</a>
+                     </div> 
+					</div></li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="/">Home</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="about">About Us</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="#">Contact Us</a></li>
+
+
+			</ul>
+
+		</div>
+
+	</nav>
+
+	<!-- <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div> -->
+
+
+
+
+
+	<div th:replace="${content}"></div>
+
+
+</body>
 </html>

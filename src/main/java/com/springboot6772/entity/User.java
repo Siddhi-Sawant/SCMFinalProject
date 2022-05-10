@@ -51,6 +51,9 @@ public class User
 	 @NotBlank(message="please enter password")
      private String password;
 	 
+	 @Column
+	 private String profileImage;
+	 
 	 @OneToMany(cascade = CascadeType.ALL)
-	 private  List <Contact>contacts=new ArrayList();
+	 private  List <Contact>contacts;
 }
