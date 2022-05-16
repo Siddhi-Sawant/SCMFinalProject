@@ -17,5 +17,10 @@ public interface userService {
 	public User getUserByUserId(int userId);
 	
 	
+	//check valid email
+	public User checkEmail(String userEmail);
+	
+	//update password
+	 public void updatePassword(User user,int userId);
 
 }

@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot6772.entity.Admin;
 import com.springboot6772.entity.User;
+import com.springboot6772.repository.UserRepo;
 import com.springboot6772.service.AdminService;
 import com.springboot6772.service.ContactService;
 import com.springboot6772.service.EmailService;
@@ -47,6 +49,10 @@ public class NormalController
 	
 	@Autowired
 	EmailService emailService;
+	
+	@Autowired
+	UserRepo userRepo;
+	 
 	/*
 	 * @GetMapping("/home") public String home() {
 	 * 
@@ -148,11 +154,48 @@ public class NormalController
 	 }
 	
 	 //verify otp
-	 
-	 public String verifyOtp()
+	 @PostMapping("/verify-otp")
+	 public String verifyOtp(@RequestParam("otp") Integer otp,HttpSession session)
 	 {
-		 return "";
+		 int newOtp=(int) session.getAttribute("newotp");
+		 String useremail=(String) session.getAttribute("userEmail");
+		 if(newOtp==otp)
+		 {
+			User user22= this.userservice.checkEmail(useremail);
+			if(user22==null)
+			{
+				session.setAttribute("message5",new Message("User does not exist for this email id!!","alert-success"));
+			    return "forgotpass";
+			}
+			else
+			{ 
+				//change password form
+			   return "change_password";
+			}
+		 }
+		 else
+		 {
+			 session.setAttribute("message6",new Message("You entered wrong otp","alert-warning"));
+			 return "verify_otp";
+		 }
+		
 	 }
+	 
+	 //change password
+	 @PostMapping("/change_pass")
+	 public String changePassword(@RequestParam("password") String newpassword,HttpSession session,@ModelAttribute User user)
+	 {
+		 String useremail=(String) session.getAttribute("userEmail");
+		 User user1=this.userservice.checkEmail(useremail);
+		 user1.setPassword(user.getPassword());
+		 //this.userservice.updatePassword(user1,userId);
+		this.userRepo.save(user1);
+		 session.setAttribute("message7",new Message("Password Update Successfully","alert-primary"));
+		return "login"; 
+	 }
+	 
+	 
+	 
 	@PostMapping("/do_register")
 	 public String register(@Valid @ModelAttribute User user,BindingResult result, @RequestParam(value="agreement",defaultValue ="false")boolean agreement,Model model,  HttpSession session)
 	 {

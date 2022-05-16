@@ -43,6 +43,22 @@ public class UserServiceImplementation implements userService
 		
 		return this.userRepo.findById(userId).get();
 	}
+
+	@Override
+	public User checkEmail(String userEmail)
+	{
+		
+		return userRepo.findByuserEmail(userEmail);
+	}
+
+	@Override
+	public void updatePassword(User user, int userId) 
+	{
+		User user1=this.userRepo.findById(userId).get();
+		user1.setPassword(user.getPassword());
+		this.userRepo.save(user1);
+		
+	}
     
      
 }
