@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<section class="banner">
+		<div class="container">
+		<div class="row">
+			<div class="login11">
+				<div class="alert alert-success" role="alert">OTP sent successfully to Email...</div>
+				<form action="#" th:action="@{/verify_otp}" method="post">
+                  
+                  
+					<div class="form-group row">
+					
+					   <div class="col-sm-12">
+						<!-- <label for="exampleInputEmail1" style="margin-left: 6%;">Password</label>  -->
+						<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter otp here" name="otp"
+							aria-describedby="emailHelp" style="margin-left:1%; margin-top: 3%;">
+					    
+						<!-- <label for="exampleInputPassword1" style="margin-left: 6%;">Confirm Password</label> <input
+							type="password" class="form-control" id="exampleInputPassword1" name="password" style="margin-left: 6%;">
+						 -->	
+					</div>
+                   </div>
+					<button type="submit" class="btn btn-success" style="margin-left: 40%;">Verify</button>
+				</form>
+			</div>
+		</div>
+		</div>
+	</section>
+
+</body>
+</html>

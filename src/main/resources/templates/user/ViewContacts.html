@@ -14,31 +14,33 @@
 			<h2 align="center" style="margin-left:10%; margin: 0 0 2% 0;">Your Contacts</h2>
 		</div>
 		<div class="container">
-			<table class="table table-striped" style="width: 100%;  border-radius: 10px; margin-left: 3%;">
+			<table class="table table-striped" style="width: 100%;  border-radius: 10px; margin-left: 9%;">
 				<thead  style="text-align: center; ">
 					<tr>
-
+                      
 						<th scope="col">Person Name</th>
 						<th scope="col">Nick Name</th>
 						<th scope="col">Mobile No</th>
 						<th scope="col">Email</th>
-						
-						<th scope="col">Person Image</th>
+						<th scope="col">Work</th>
 						<th scope="col">Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="contact:${contactObj}">
-
-						<td th:text="${contact.personName}"></td>
+					<tr th:each="contact:${listContact}">
+                        
+                     <!--    <td > 
+						<img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact.personImage}}" />
+						
+						<span th:text="${contact.personImage}"></span></td> -->
+                        
+						<td ><img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact.personImage}}" />  <span th:text="${contact.personName}"></span></td>
 						<td th:text="${contact.nickName}"></td>
 						<td th:text="${contact.mobileNo}"></td>
 						<td th:text="${contact.personEmail}"></td>
+						<td th:text="${contact.personWork}"></td>
 						
-						<td > 
-						<img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact.personImage}}" alt="prfile photo" />
 						
-						<span th:text="${contact.personImage}"></span></td>
 						<td><!-- <button type="button" class="btn btn-primary"> -->
 								<a	th:href="@{/editContact{contactId}(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color:blue;"><i class="fa-solid fa-pen-to-square"></i>Edit</a> | 
 							<!-- <button type="button" class="btn btn-danger"> -->
@@ -51,15 +53,38 @@
 			</div>
 			</div>
 
-			<div class="page" style="margin-left: 44%; margin-bottom: 3%;">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			<div th:if="${totalpages >1 }" style="margin-left: 15%; border: 2px red;">
+			<div class="row col-sm-10" >
+			   <div class="col-cm-2">
+			         Total Rows: [[${totalitems}]]
+			   </div><br>
+			   <div class="col-cm-1" style="margin-left: 10px; border: 2px black;">
+			      <span th:each=" i : ${#numbers.sequence(1,totalpages)}">
+			       <a th:if="${currentpage!= i }" th:href="@{'/page/'+${i}}">[[${i}]]</a>
+			       <span th:unless="${currentpage !=i}">[[${i}]]</span>&nbsp;
+			      </span>    
+			    </div>
+			    <div class="col-cm-1">
+			      <a th:if="${currentpage<totalpages}" th:href="@{'/page/'+${currentpage + 1}}">Next</a>
+			      <span th:unless="${currentpage < totalpages}">Next</span>
+			    </div>
+			    
+			     <div class="col-cm-1" style="margin-left: 10px;">
+			      <a th:if="${currentpage<totalpages}" th:href="@{'/page/'+${currentpage + 1}}">Last</a>
+			      <span th:unless="${currentpage < totalpages}">Last</span>
+			    </div>
+			
+			</div>
+			
+			</div>
+				<!-- <nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li  th:if=" ${currentpage+1==0}" class="page-item"><a class="page-link" href="#">Previous</a></li>
+						<li  th:classappend="${currentpage==i-1?'active':''}"  th:each=" i : ${#numbers.sequence(1,totalpages)}" class="page-item"><a  th:href="@{'/viewContacts{userId}/{page}/'+${i-1}}"  class="page-link" href="#"><span th:text="${i}"></span></a></li>
+						<li  th:if="${currentpage+1 !=totalpages}"  class="page-item"><a  th:href="@{'/viewContacts{userId}/{page}/'+${currentpage+1}}"class="page-link" href="#">Next</a></li>
 					</ul>
 				</nav>
-			</div>
+			 -->
 		
 		
 	</section>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+  <section>
+     <div class="container">
+      <p style="margin-top: 20%; font-size: large;">Upload Profile</p>
+     
+       <div class="row" style="margin-top: 20%; height: 40%;">
+           
+         <div class="col">
+           <div class="profile" >
+           
+            
+             <form action="#" th:action="@{/uploaded{userId}(userId=${session.userId})}" method="post" enctype="multipart/form-data" style="background-color:rgb(220, 220, 220); margin-left:60%; width:100%;padding: 50px; border-radius: 10px;">
+                
+                 <div th:if="${session.message3}" th:classappend="${session.message3.messageType}" class="alert" role="alert">
+                   <p th:text="${session.message3.content}"></p>
+                   <th:block th:text="${#session.removeAttribute('message3')}"/>
+                   </div>
+                   
+              <input type="file" name="profile_image">
+              <input type="submit" class="btn btn-primary" value="Upload">  
+           </form>
+           </div>
+         </div>
+       </div>
+     </div>
+  </section>
+</body>
+</html>

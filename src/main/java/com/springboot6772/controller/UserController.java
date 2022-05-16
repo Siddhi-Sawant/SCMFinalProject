@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -51,7 +54,8 @@ public class UserController
 	@Autowired
 	UserRepo userRepo;
 	
-
+	@Autowired
+   ContactRepo contactRepo;
 	
 	@GetMapping("/home")
 	public String home(Model m)
@@ -120,20 +124,33 @@ public class UserController
 	
 
 	@GetMapping("/viewContacts{userId}")
-	public String viewContacts(@PathVariable("userId") int userId,   Model model)
+	public String viewContacts(@PathVariable("userId") int userId,Model model)
 	{
-		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
-		model.addAttribute("contactObj",contactDetails);
-		return "user/ViewContacts";
+		
+//		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
+//		
+		//model.addAttribute("listContact",contactDetails);
+//		
+		//return "user/ViewContacts";
+		return viewPagination(1,model);
 	}
+	
+//	@GetMapping("/viewContacts{userId}/{pageNo}/{pageSize}")
+//	public List<Contact> getPagination(@PathVariable("userId") int userId,@PathVariable int pageNo,@PathVariable int pageSize)
+//	{
+//		return contactservice.getContactByUserId(userId, pageSize, pageNo);
+//	}
 
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public String handleFileUploadError(RedirectAttributes ra,HttpSession session)
 	{
 		System.out.println("Caught file upload error");
 		ra.addFlashAttribute("alert-danger", "File size is greater than 1MB");
+		
 		session.setAttribute("message", new Message("File size is greater than 1MB","alert-danger"));
+		//session.setAttribute("message3", new Message("File size is greater than 1MB","alert-danger"));
 		return "user/addcontact";
+		
 	}
 	
 	@GetMapping("/editContact{contactId}")
@@ -146,7 +163,7 @@ public class UserController
 	}
     
 	@PostMapping("/saveUpdateContact{contactId}")
-	public String update_Contact(@ModelAttribute Contact contact,@PathVariable("contactId") int contactId,HttpSession session,@RequestParam("person_Image") MultipartFile file) throws IOException
+	public String update_Contact( @ModelAttribute Contact contact,@PathVariable("contactId") int contactId,HttpSession session,@RequestParam("person_Image") MultipartFile file) throws IOException
 	{
 		if(file.isEmpty())
 		{
@@ -167,7 +184,7 @@ public class UserController
 		this.contactservice.updateContact(contact, contactId);
 		session.setAttribute("message1", new Message("Contact Updated successfully","alert-success"));
 		
-		return "user/editContact";
+		return "redirect:/editContact{contactId}";
 	}
 	
 //	@GetMapping("/deleteContact{contactId}")
@@ -191,6 +208,9 @@ public class UserController
 		//return "redirect:/user/ViewContacts";
 		//return "redirect:/viewContacts/{userId}";
 		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
+		
+		//Pageable pageable=PageRequest.of(page, 4);
+		//Page<Contact> contactDetails=this.contactRepo.getContactByUserId(userId, pageable);
 		model.addAttribute("contactObj",contactDetails);
 		return "user/ViewContacts";
 		//return "redirect:/viewContacts{userId}";
@@ -201,33 +221,68 @@ public class UserController
 	{
 		return "user/viewProfile";
 	}
+	  
+	@GetMapping("/profile")
+	public String uploadUserProfile(Model model)
+	{
+		model.addAttribute("title", "Upload Profile");
+		return "user/uploadProfile";
+	}
 	
-//	@PostMapping("/saveProfilePhoto{userId}")
-//	public String saveProfileImage(@RequestParam("profile_image") MultipartFile file,@PathVariable("userId") int userId)
-//	{
-//		User user=this.userservice.getUserByUserId(userId);
-//		try 
-//		{
-//			
-//			if(file.isEmpty())
-//			{
-//
-//				System.out.println("File is empty");
-//				System.out.println("-----------------------------message 1");
-//			}
-//			else
-//			{
-//				System.out.println("-----------------------------message 2");
-//				user.setProfileImage(file.getOriginalFilename());
-//				File saveFile= new ClassPathResource("static/img").getFile();
-//				Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
-//				Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
-//				System.out.println("File is uploaded");
-//			}
-//			user.setProfileImage(null)
-//			
-//		return "";
-//	}
+	@PostMapping("/uploaded{userId}")
+	public String Upload_profile(@RequestParam("profile_image")MultipartFile file,@PathVariable("userId")Integer userId,HttpSession session) throws IOException
+	{
+		User user1=this.userservice.getUserByUserId(userId);
+		if(file.isEmpty())
+		{
+
+			System.out.println("File is empty");
+			user1.setProfileImage("default.png");
+			System.out.println("-----------------------------message 1");
+		}
+		else
+		{
+			System.out.println("-----------------------------message 2");
+			
+			user1.setProfileImage(file.getOriginalFilename());
+			File saveFile= new ClassPathResource("static/img").getFile();
+			Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+			Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+			System.out.println("File is uploaded");
+			session.setAttribute("message3", new Message("Profile Image uploaded successfully...","alert-warning"));
+			}
+		
+		this.userservice.addUser(user1);
+		return "user/uploadProfile";
+	}
+	
+	//pagination code
+	
+	@GetMapping("/page/{pageNo}")
+	public String viewPagination(@PathVariable(value="pageNo") int pageNo, Model model)
+	{
+        
+		///List<Contact>listContact1=this.contactservice.getContactByUserId(userId);
+		
+		//model.addAttribute("listContact",contactDetails);
+		//User user1=this.userservice.getUserByUserId(userId);
+	    
+		int pageSize=5;
+		Page<Contact> page=contactservice.findPagination(pageNo, pageSize);
+		List<Contact>listContact=page.getContent();
+		model.addAttribute("currentpage", pageNo);
+		model.addAttribute("totalpages", page.getTotalPages());
+		model.addAttribute("totalitems", page.getTotalElements());
+		model.addAttribute("listContact", listContact);
+		//model.addAttribute("listcontact", listContact1);
+		return "user/ViewContacts";
+		
+		
+		
+		
+	}
+	
+	
 
 }
 

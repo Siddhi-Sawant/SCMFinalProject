@@ -2,6 +2,9 @@ package com.springboot6772.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.springboot6772.entity.Contact;
 
 public interface ContactService 
@@ -10,8 +13,10 @@ public interface ContactService
   
   public List<Contact> getAllContacts();
   
-  public List<Contact>  getContactByUserId(int userId);
+  
+   public List<Contact>  getContactByUserId(int userId);
    
+ 
   
   //update contact
   public Contact getContactByContactId(int contactId);
@@ -22,5 +27,7 @@ public interface ContactService
   //delete contact
    public void deleteContactByContactId(int contactId);
   
-  
+  //pagination
+   
+   Page<Contact> findPagination(int pageNo,int pageSize);
 }

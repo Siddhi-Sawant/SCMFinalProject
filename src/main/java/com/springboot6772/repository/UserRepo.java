@@ -7,7 +7,7 @@ import com.springboot6772.entity.User;
 
 public interface UserRepo extends JpaRepository<User, Integer>
 {
-   public User findByuserNameAndPassword(String userName,String password);
+   public User findByuserEmailAndPassword(String userEmail,String password);
 	
    public User getUserByUserName(String userName);
    

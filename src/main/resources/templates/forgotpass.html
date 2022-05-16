@@ -11,26 +11,30 @@
 		<div class="container">
 		<div class="row">
 			<div class="login1">
-				<h2 style="text-align: center; margin-bottom: 10%">Reset Password</h2>
-				<form>
+				<h2 style="text-align: center; margin-bottom: 5%">Reset Password</h2>
+				<form action="#" th:action="@{/send_otp}" method="post">
                   
+                   <div th:if="${session.message5}" th:classappend="${session.message5.messageType}" class="alert" role="alert">
+                   <p th:text="${session.message5.content}"></p>
+                   <th:block th:text="${#session.removeAttribute('message5')}"/>
+                   </div>
                   
                   
 					<div class="form-group row">
 					<div class="col-sm-5">
-					   <img alt="" src="/img/login2.jpg">
+					   <img alt="" src="/img/login2.jpg" style="margin-left: 70%; border-radius: 40%;">
 					   </div>
-					   <div class="col-sm-7">
-						<label for="exampleInputEmail1" style="margin-left: 6%;">Password</label> <input
-							type="password" class="form-control" id="exampleInputEmail1" name="password"
-							aria-describedby="emailHelp" style="margin-left: 6%;">
+					   <div class="col-sm-10">
+						<!-- <label for="exampleInputEmail1" style="margin-left: 6%;">Password</label>  -->
+						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email here" name="userEmail"
+							aria-describedby="emailHelp" style="margin-left: 10%; margin-top: 3%;">
 					    
-						<label for="exampleInputPassword1" style="margin-left: 6%;">Confirm Password</label> <input
+						<!-- <label for="exampleInputPassword1" style="margin-left: 6%;">Confirm Password</label> <input
 							type="password" class="form-control" id="exampleInputPassword1" name="password" style="margin-left: 6%;">
-							
+						 -->	
 					</div>
                    </div>
-					<button type="submit" class="btn btn-primary" formaction="login">Submit</button>
+					<button type="submit" class="btn btn-warning">Send OTP</button>
 				</form>
 			</div>
 		</div>

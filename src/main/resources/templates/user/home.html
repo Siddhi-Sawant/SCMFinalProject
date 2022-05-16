@@ -7,12 +7,21 @@
 </head>
 <body>
 
-<section>
-   <h2 style="margin-top: 20%;">Welcome <small><span th:text="${session.user.userName}"></span></small></h2>
-   <div>
-     <img alt="" src="../img/cm2.jpg" style="height:300px; width: 400px; border-radius: 15px;">
-   </div>
+	<section>
+		<h2 style="margin-top: 20%;">
+			Welcome <small><span th:text="${session.user.userName}"></span></small>
+		</h2>
+
+		<div class="card" style="width: 400px;">
+			<img alt="" src="../img/cm2.jpg" style="height: 200px; width: 400px; border-radius: 15px;">
+			<div class="card-body" style="background: none;text-align: justify;">
+				<p	class="card-text">Welcome,Here you can store and find contact information, such as names, addresses, and telephone numbers</p>
+            <a href="/addcontact" style="text-decoration: none;">Add Contact  <i class="fa-solid fa-arrow-right"></i></a>
+           </div>
+    </div>
+   
+   
     <div class="divider1"></div>
-</section>
+	</section>
 </body>
 </html>

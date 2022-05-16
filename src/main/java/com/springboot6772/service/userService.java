@@ -10,12 +10,11 @@ public interface userService {
 
 	 public void addUser(User user);
 	
-	public User checkLogin(String userName,String password);
+	public User checkLogin(String userEmail,String password);
 	
 	public List<User> getUsers();
 	
 	public User getUserByUserId(int userId);
-	
 	
 	
 

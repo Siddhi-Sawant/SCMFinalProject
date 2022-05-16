@@ -43,16 +43,25 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent" >
       <ul class="navbar-nav ml-auto" style="font-size: 20px;" >
     
-       <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#"><span th:text="${session.user.userName}"></span></a>
-        </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         
-         <li class="nav-item">
+        <li class="nav-item">
+         <div class="dropdown">
+               <a class="nav-link active dropdown-toggle" data-toggle="dropdown" aria-current="page" href="#"> <img src="" class=" my_profile_picture" th:src="@{'/img/'+${session.user1.profileImage}}" /><span th:text="${session.user1.userName}"></span></a>
+               <div class="dropdown-menu" style="background: none;">
+                
+                  <a href="viewProfile" class="nav-link active"><i class="fas fa-user-circle"></i> View Profile</a>
+                   <a class="nav-link active" aria-current="page" href="login">Logout</a>
+               </div>
+         </div>
+         
+        </li>
+        
+        <!--  <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="login">Logout</a>
-        </li> 
+        </li>  -->
        
       
       </ul>
@@ -69,7 +78,7 @@
        <a href="home" class="nav-link active"> <i class="fa-solid fa-house-chimney-user"></i> Home</a>
        <a href="addcontact" class="nav-link active"> <i class="fas fa-pencil-alt"></i> Add Contact</a>
        <a th:href="@{/viewContacts{userId}(userId=${session.userId})}" class="nav-link active"><i class="fas fa-id-card-alt"></i> View Contact</a>
-       <a href="viewProfile" class="nav-link active"><i class="fas fa-user-circle"></i> View Profile</a>
+        <a href="profile" class="nav-link active"><i class="fas fa-user-circle"></i> Upload Profile</a>
        <a href="#" class="nav-link active"><i class="fas fa-cogs"></i> Settings</a>  
        <div class="divider"></div>
   </section>

@@ -9,7 +9,7 @@
 <body>
  <section>
    <div class="title1">
-  <h2 align="center" style="margin-left: 40%;" >View User</h2>
+  <h2 align="center" style="margin-left: 40%;margin-bottom: 3%;" >View User</h2>
   </div>
   <div class="container" >
      <table class="table" style="width:120%; margin-left: 12%;">
@@ -31,7 +31,7 @@
       <td th:text="${user.userContact}"></td>
       <td th:text="${user.password}"></td>
       
-      <td><button type="button" class="btn btn-danger"><a href="#" style="color:white; text-decoration: none;">Delete</a></button> | <button type="button" class="btn btn-info"><a href="#" style="color:white; text-decoration: none;">Contact</a></button></td>
+      <td><button type="button" class="btn btn-danger"><a href="#" style="color:white; text-decoration: none;">Delete</a></button> | <button type="button" class="btn btn-info"><a th:href="@{/contact{userId}(userId=${user.userId})}" style="color:white; text-decoration: none;">Contact</a></button></td>
     </tr>
    
   </tbody>

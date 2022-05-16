@@ -19,6 +19,9 @@ public class AdminServiceImplementation implements AdminService
 	@Override
 	public void addAdmin(Admin admin) 
 	{
+		admin.setAdminId(1);
+		admin.setAdminName("Admin");
+		admin.setPassword("Admin111");
 		this.adminRepo.save(admin);
 		
 	}

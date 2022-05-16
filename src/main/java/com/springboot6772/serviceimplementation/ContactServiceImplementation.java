@@ -3,6 +3,9 @@ package com.springboot6772.serviceimplementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.springboot6772.entity.Contact;
@@ -35,12 +38,14 @@ public class ContactServiceImplementation implements ContactService
 	}
 
 	@Override
-	public List<Contact> getContactByUserId(int userId) {
-		// TODO Auto-generated method stub
+	public List<Contact> getContactByUserId(int userId )
+	{
 		
 	   User  user=  this.userRepo.findById(userId).get();
-	   
-	   return user.getContacts();
+	   //return pageResult.toList();
+	  // return user.getContacts();
+	   //return user.getContacts();
+	  return   user.getContacts();
 	}
 
 	@Override
@@ -75,6 +80,15 @@ public class ContactServiceImplementation implements ContactService
 		updateContact(contact, contactId);
 		this.contactRepo.delete(contact);
 		
+	}
+
+	@Override
+	public Page<Contact> findPagination(int pageNo, int pageSize)
+	{
+	  
+       Pageable pageable=PageRequest.of(pageNo-1, pageSize);
+	   return this.contactRepo.findAll(pageable);
+       //return user.getContacts();
 	}
 	
 	

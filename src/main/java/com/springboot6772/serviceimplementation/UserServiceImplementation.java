@@ -25,9 +25,9 @@ public class UserServiceImplementation implements userService
      }
 
 	@Override
-	public User checkLogin(String userName, String password) {
+	public User checkLogin(String userEmail, String password) {
 		
-		return userRepo.findByuserNameAndPassword(userName,password);
+		return userRepo.findByuserEmailAndPassword(userEmail,password);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,6 +17,7 @@ import com.springboot6772.entity.Admin;
 import com.springboot6772.entity.Contact;
 import com.springboot6772.entity.User;
 import com.springboot6772.service.AdminService;
+import com.springboot6772.service.ContactService;
 import com.springboot6772.service.userService;
 
 @Controller
@@ -27,14 +29,14 @@ public class AdminController
 	@Autowired
 	userService userservice;
 	
+	@Autowired
+	ContactService contactservice;
+	
 	
 	@RequestMapping("/")
 	public String adminhome()
 	{
-		Admin admin=new Admin();
-		admin.setAdminName("Admin");
-		admin.setPassword("Admin111");
-		this.adminService.addAdmin(admin);
+		
 		return "admin/adminLogin";
 	}
 	
@@ -57,6 +59,7 @@ public class AdminController
 	@GetMapping("/admin")
 	public String adminLogin(Model model)
 	{
+		
 		model.addAttribute("title" ,"AdminLogin");
 		return "admin/adminLogin";
 	}
@@ -99,5 +102,15 @@ public class AdminController
 		 List<User> userDetails=this.userservice.getUsers();
 		 model.addAttribute("userObj",userDetails);
 		 return "admin/viewUser";
+	 }
+	 
+	 @GetMapping("/contact{userId}")
+	 public String viewContact(Model model,@PathVariable("userId") Integer userId)
+	 {
+		 List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
+		 System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		 System.out.println("AdminUserId------------------------------------------------===="+userId);
+		 model.addAttribute("contactObj",contactDetails); 
+		 return "admin/viewContact";
 	 }
 }

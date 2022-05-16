@@ -6,7 +6,7 @@ body
 }
 .bg-color
 {
-	background:	whitesmoke;
+	background:	rgb(215, 215, 215);
 	color:black;
 	
 }
@@ -93,11 +93,38 @@ body
 
 .card-body
 {
-	margin-top:20%;
-	margin-left: 35%;
-	width: 150%;
+	margin-top:2%;
+	
+	width:400px;
 	background-color:rgb(243, 243, 243);
 	border-radius: 30px;
+}
+.card-body1
+{
+	margin-top:0%;
+	margin-left:56%;
+	width: 160%;
+	background-color:rgb(243, 243, 243);
+	border-radius: 30px;
+	padding: 10px;
+}
+.card-body11
+{
+	margin-top:25%;
+	margin-left:56%;
+	width: 160%;
+	background-color:rgb(243, 243, 243);
+	border-radius: 30px;
+	padding: 10px;
+}
+.card-body12
+{
+	margin-top:1%;
+	margin-left:5%;
+	width: 80%;
+	background-color:rgb(243, 243, 243);
+	border-radius: 30px;
+	padding: 10px;
 }
 
 .table
@@ -148,10 +175,11 @@ body
 #backColor
 {
 	background-color:rgb(243, 243, 243);
-	width: 110%;
-	height: 100%;
-	margin-top:5%;
+	width: 80%;
+	height: 30%;
+	position:static;
 	border-radius: 20px;
+	margin-left: 8%;
 }
 .my_profile_picture
 {
