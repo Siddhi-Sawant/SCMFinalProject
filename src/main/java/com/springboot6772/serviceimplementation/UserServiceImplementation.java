@@ -59,6 +59,14 @@ public class UserServiceImplementation implements userService
 		this.userRepo.save(user1);
 		
 	}
+
+	@Override
+	public void removePhoto(String profileImage,int userId) 
+	{
+		User user1=this.userRepo.findById(userId).get();
+		
+		
+	}
     
      
 }

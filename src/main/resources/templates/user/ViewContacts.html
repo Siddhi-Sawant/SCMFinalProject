@@ -10,11 +10,22 @@
 	  
 	 <div class="card1-body">
 		<div class="title">
-		 <a href="/addcontact" style="text-decoration: none; margin-left: 6%;font-size: large;"><i class="fa-solid fa-circle-arrow-left"></i> Add Contact</a>
-			<h2 align="center" style="margin-left:10%; margin: 0 0 2% 0;">Your Contacts</h2>
-		</div>
+		 <a href="/addcontact" style="text-decoration: none; margin-left: 4%;font-size: large;"><i class="fa-solid fa-circle-arrow-left"></i> Add Contact</a>
+		   <div style="margin-left: 46%; position: relative; width: 60%;">
+		       <input id="search-input " type="text" class="form-control" name="keyword" placeholder="Search contact here" style="border-radius: 40px;width: 100%;">	
+		        <button type="submit" class="btn btn-primary" style="margin-left:100%;margin-top:4%; "><a th:href="@{/search}" style="color: white; text-decoration: none;">Search</a></button>
+		   </div>
+	
+		 
+		 
+			
+			  
+			<h2 align="center" style=" margin: 0% 0 3% 28%;">Your Contacts</h2>
+		
+		
 		<div class="container">
-			<table class="table table-striped" style="width: 100%;  border-radius: 10px; margin-left: 9%;">
+		
+			<table class="table table-striped" style="width: 110%;  border-radius: 10px; margin-left: 11%; box-shadow: 5px 5px 10px;">
 				<thead  style="text-align: center; ">
 					<tr>
                       
@@ -44,7 +55,7 @@
 						<td><!-- <button type="button" class="btn btn-primary"> -->
 								<a	th:href="@{/editContact{contactId}(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color:blue;"><i class="fa-solid fa-pen-to-square"></i>Edit</a> | 
 							<!-- <button type="button" class="btn btn-danger"> -->
-								<a th:href="@{/deleteContact(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color: blue;"><i class="fa-solid fa-trash-can"></i> Delete</a>
+								<a th:href="@{/deleteContact{contactId}(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color: blue;"><i class="fa-solid fa-trash-can"></i> Delete</a>
 							</td>
 					</tr>
 
@@ -52,8 +63,9 @@
 			</table>
 			</div>
 			</div>
+			</div>
 
-			<div th:if="${totalpages >1 }" style="margin-left: 15%; border: 2px red;">
+		<!-- 	<div th:if="${totalpages >1 }" style="margin-left: 15%; border: 2px red;">
 			<div class="row col-sm-10" >
 			   <div class="col-cm-2">
 			         Total Rows: [[${totalitems}]]
@@ -76,7 +88,7 @@
 			
 			</div>
 			
-			</div>
+			</div> -->
 				<!-- <nav aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
 						<li  th:if=" ${currentpage+1==0}" class="page-item"><a class="page-link" href="#">Previous</a></li>

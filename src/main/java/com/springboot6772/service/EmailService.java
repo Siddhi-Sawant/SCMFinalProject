@@ -32,13 +32,7 @@ public class EmailService
 	   properties.put("mail.smtp.host", host);
 	   properties.put("mail.smtp.port", "465");
 	   properties.put("mail.smtp.ssl.enable", "true");
-	   properties.put("mail.smtp.auth", "true");
-	   
-//	   properties.put("mail.smtp.host", host);
-//	   properties.put("mail.smtp.port", "25");
-//	   properties.put("mail.smtp.ssl.enable", "true");
-//	   properties.put("mail.smtp.auth", "true");
-	   
+	   properties.put("mail.smtp.auth", "true");  
 	   
 	   
 	 // mail.smtp.host=smtp.gmail.com, mail.smtp.port=25, mail.smtp.auth=true mail.smtp.starttls.enable=true
@@ -48,7 +42,7 @@ public class EmailService
 		   @Override
 		   protected PasswordAuthentication getPasswordAuthentication()
 		   {
-			   
+			                                     //emailid                 password
 		     return new PasswordAuthentication("aratij19799@gmail.com","artiramesh@99");
 		   }
 		

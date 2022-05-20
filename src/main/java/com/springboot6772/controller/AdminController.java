@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.springboot6772.entity.Admin;
 import com.springboot6772.entity.Contact;
 import com.springboot6772.entity.User;
+import com.springboot6772.repository.UserRepo;
 import com.springboot6772.service.AdminService;
 import com.springboot6772.service.ContactService;
 import com.springboot6772.service.userService;
@@ -32,6 +33,8 @@ public class AdminController
 	@Autowired
 	ContactService contactservice;
 	
+	@Autowired
+	UserRepo userRepo;
 	
 	@RequestMapping("/")
 	public String adminhome()
@@ -112,5 +115,14 @@ public class AdminController
 		 System.out.println("AdminUserId------------------------------------------------===="+userId);
 		 model.addAttribute("contactObj",contactDetails); 
 		 return "admin/viewContact";
+	 }
+	 
+	 @GetMapping("/delete{userId}")
+	 public String deleteUser(@PathVariable("userId") int userId,HttpSession session)
+	 {
+		 User user1=userservice.getUserByUserId(userId);
+		 this.userRepo.delete(user1);
+		 session.setAttribute("message", new Message("User deleted Successfully","alert-success"));
+		 return "redirect:/viewUser";
 	 }
 }

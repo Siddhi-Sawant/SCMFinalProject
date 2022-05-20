@@ -107,6 +107,7 @@ body
 	background-color:rgb(243, 243, 243);
 	border-radius: 30px;
 	padding: 10px;
+	box-shadow: 5px 5px 10px;
 }
 .card-body11
 {
@@ -116,6 +117,7 @@ body
 	background-color:rgb(243, 243, 243);
 	border-radius: 30px;
 	padding: 10px;
+	box-shadow: 5px 5px 10px;
 }
 .card-body12
 {
@@ -148,7 +150,7 @@ body
 .card1-body
 {
 	margin-top:9%;
-	margin-left:2%;
+	margin-left:3%;
 	padding:5px;
 	width:110%;
 	height:200%;
@@ -176,14 +178,36 @@ body
 {
 	background-color:rgb(243, 243, 243);
 	width: 80%;
-	height: 30%;
+	height: 20%;
 	position:static;
 	border-radius: 20px;
 	margin-left: 8%;
+	box-shadow: 5px 5px 10px;
 }
 .my_profile_picture
 {
 	width: 30px;
 	height: 30px;
 	border-radius: 50%;
+}
+
+.search-result
+{
+	position: absolute;
+	width: 93%;
+	padding: 10px;
+	border: 1px solid gray;
+	display: none;
+}
+
+.change-password
+{
+	margin-left:110%;
+	margin-top: 20%;
+	 background: rgb(228, 228, 228);
+	width: 170%;
+	height: 80%;
+	box-shadow: 5px 5px 10px;
+	padding: 20px;
+
 }

@@ -9,6 +9,13 @@
 <body>
  <section>
    <div class="title1">
+     
+       <div th:if="${session.message}" th:classappend="${session.message.messageType}" class="alert" role="alert" style="margin-left: 20%;">
+                   <p th:text="${session.message.content}"></p>
+                   <th:block th:text="${#session.removeAttribute('message')}"/>
+        </div>
+   
+   
   <h2 align="center" style="margin-left: 40%;margin-bottom: 3%;" >View User</h2>
   </div>
   <div class="container" >
@@ -31,7 +38,7 @@
       <td th:text="${user.userContact}"></td>
       <td th:text="${user.password}"></td>
       
-      <td><button type="button" class="btn btn-danger"><a href="#" style="color:white; text-decoration: none;">Delete</a></button> | <button type="button" class="btn btn-info"><a th:href="@{/contact{userId}(userId=${user.userId})}" style="color:white; text-decoration: none;">Contact</a></button></td>
+      <td><button type="button" class="btn btn-danger"><a th:href="@{/delete{userId}(userId=${user.userId})}" style="color:white; text-decoration: none;">Delete</a></button> | <button type="button" class="btn btn-info"><a th:href="@{/contact{userId}(userId=${user.userId})}" style="color:white; text-decoration: none;">Contact</a></button></td>
     </tr>
    
   </tbody>

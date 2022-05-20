@@ -22,5 +22,8 @@ public interface userService {
 	
 	//update password
 	 public void updatePassword(User user,int userId);
+	 
+	 //remove photo
+	 public void removePhoto(String profileImage,int userId);
 
 }

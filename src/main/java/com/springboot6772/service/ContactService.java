@@ -30,4 +30,5 @@ public interface ContactService
   //pagination
    
    Page<Contact> findPagination(int pageNo,int pageSize);
-}
+   
+  }

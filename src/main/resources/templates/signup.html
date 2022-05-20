@@ -40,6 +40,7 @@
          class="form-control" 
          id="exampleInputEmail1" 
          name="userName"
+         placeholder="Enter name here"
          th:value="${user.userName}"
          th:classappend="${#fields.hasErrors('userName') ? 'is-invalid' : ''}" >
          <div class="invalid-feedback"  th:each =  "e: ${#fields.errors('userName')}" th:text="${e}">
@@ -52,6 +53,7 @@
          class="form-control" 
          id="exampleInputEmail1" 
          name="userEmail"
+          placeholder="Enter email here"
          th:value="${user.userEmail}" 
            th:classappend="${#fields.hasErrors('userEmail') ? 'is-invalid' : ''}" >
          <div class="invalid-feedback"  th:each =  "e: ${#fields.errors('userEmail')}" th:text="${e}">
@@ -64,6 +66,7 @@
          class="form-control" 
          id="exampleInputEmail1" 
          name="userContact"
+          placeholder="Enter contact here"
          th:value="${user.userContact}"
            th:classappend="${#fields.hasErrors('userContact') ? 'is-invalid' : ''}" >
          <div class="invalid-feedback"  th:each =  "e: ${#fields.errors('userContact')}" th:text="${e}">
@@ -76,6 +79,7 @@
          class="form-control" 
          id="exampleInputEmail1" 
          name="password"
+          placeholder="eg.Abc@111"
          th:value="${user.password}"
            th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}" >
          <div class="invalid-feedback"  th:each =  "e: ${#fields.errors('password')}" th:text="${e}">

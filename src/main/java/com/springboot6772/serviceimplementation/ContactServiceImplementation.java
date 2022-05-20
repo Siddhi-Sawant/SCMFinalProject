@@ -81,7 +81,8 @@ public class ContactServiceImplementation implements ContactService
 		this.contactRepo.delete(contact);
 		
 	}
-
+ 
+	//pagination
 	@Override
 	public Page<Contact> findPagination(int pageNo, int pageSize)
 	{
@@ -90,6 +91,8 @@ public class ContactServiceImplementation implements ContactService
 	   return this.contactRepo.findAll(pageable);
        //return user.getContacts();
 	}
+
+	
 	
 	
 

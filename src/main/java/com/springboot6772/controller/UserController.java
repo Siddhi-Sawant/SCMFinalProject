@@ -16,6 +16,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -94,6 +96,7 @@ public class UserController
 
 				System.out.println("File is empty");
 				contact.setPersonImage("default.png");
+				//contact.setPersonWork("-");
 				System.out.println("-----------------------------message 1");
 			}
 			else
@@ -127,12 +130,12 @@ public class UserController
 	public String viewContacts(@PathVariable("userId") int userId,Model model)
 	{
 		
-//		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
-//		
-		//model.addAttribute("listContact",contactDetails);
-//		
-		//return "user/ViewContacts";
-		return viewPagination(1,model);
+		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
+		
+		model.addAttribute("listContact",contactDetails);
+		
+		return "user/ViewContacts";
+		//return viewPagination(1,model);
 	}
 	
 //	@GetMapping("/viewContacts{userId}/{pageNo}/{pageSize}")
@@ -196,24 +199,23 @@ public class UserController
 //		return "redirect:/user/ViewContacts";
 //	}
 	
-	 @GetMapping("/deleteContact")
+	 @GetMapping("/deleteContact{contactId}")
 	//@GetMapping("/viewContacts{userId}")
-	public String deleteContact(@RequestParam("contactId") Integer contactId, Model model)
+	public String deleteContact(@PathVariable("contactId") Integer contactId, Model model)
 	{
 	   int userId= this.contactservice.getContactByContactId(contactId).getUsers().getUserId();
 	   
 	   System.out.println("User ID +++++++++++++++++++  "+userId);
 	   
 		contactservice.deleteContactByContactId(contactId);
-		//return "redirect:/user/ViewContacts";
-		//return "redirect:/viewContacts/{userId}";
-		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
 		
-		//Pageable pageable=PageRequest.of(page, 4);
-		//Page<Contact> contactDetails=this.contactRepo.getContactByUserId(userId, pageable);
-		model.addAttribute("contactObj",contactDetails);
+        List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
+		
+		model.addAttribute("listContact",contactDetails);
+		
 		return "user/ViewContacts";
-		//return "redirect:/viewContacts{userId}";
+		  //return "redirect:/viewContacts{userId}";
+		
 	}
 	
 	@GetMapping("viewProfile")
@@ -249,7 +251,7 @@ public class UserController
 			Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
 			Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
 			System.out.println("File is uploaded");
-			session.setAttribute("message3", new Message("Profile Image uploaded successfully...","alert-warning"));
+			session.setAttribute("message3", new Message("Profile Image uploaded successfully...","alert-success"));
 			}
 		
 		this.userservice.addUser(user1);
@@ -275,14 +277,39 @@ public class UserController
 		model.addAttribute("totalitems", page.getTotalElements());
 		model.addAttribute("listContact", listContact);
 		//model.addAttribute("listcontact", listContact1);
-		return "user/ViewContacts";
-		
-		
-		
+		return "user/ViewContacts";		
 		
 	}
 	
+	@GetMapping("/signout{userId}")
+	public String signout(@PathVariable("userId")int userId,HttpSession session)
+	{
+		User user=this.userservice.getUserByUserId(userId);
+		this.userRepo.delete(user);
+		session.setAttribute("message2",new Message("You successfully sign out","alert-info"));
+		return "login";
+	}
+	
+	@GetMapping("/changepass")
+	public String change_pass()
+	{
+		return "user/changePassword";
+	}
+	
+	@PostMapping("/changepass{userId}")
+	public String changepass(@PathVariable("userId")int userId,@ModelAttribute User user,HttpSession session)
+	{
+		User user1=this.userservice.getUserByUserId(userId);
+		user1.setPassword(user.getPassword());
+		this.userRepo.save(user1);
+		session.setAttribute("message22",new Message("Password changed successfully!!!","alert-success"));
+		return "user/changePassword";
+	}
 	
 
+//	public String deletePhoto()
+//	{
+//		//this.userRepo.deleteById(null);
+//	}
 }
 
