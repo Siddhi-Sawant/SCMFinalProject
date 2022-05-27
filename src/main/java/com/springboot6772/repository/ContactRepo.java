@@ -13,11 +13,16 @@ import com.springboot6772.entity.User;
 
 public interface ContactRepo extends JpaRepository<Contact, Integer>
 {
-//	@Query("from Contact c where c.users.userId=:userId")
-//	 public Page<Contact> getContactByUserId(@Param("userId")int userId,Pageable pageable);
+	//Pagination
+	@Query("from Contact c where c.users.userId=:userId")
+	public Page<Contact> findContactByUser(@Param("userId") int userId,Pageable pageable);
 	
 	//Search contact
-//	@Query("SELECT c FROM Contact c WHERE c.personName LIKE %?1%" )
+	@Query("SELECT c FROM Contact c WHERE c.personName LIKE %?1% ")
+	public List<Contact> findAll(String keyword);
    
-
+	@Query("SELECT c FROM Contact c WHERE c.personName LIKE %?1%")
+     public List<Contact> findByNameContainingAndUser(String personName,User user);
+	
+	
 }

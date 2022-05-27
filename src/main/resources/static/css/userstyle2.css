@@ -24,7 +24,7 @@ body
 {
 	.sidebar
 	{
-	display:none;
+	
 	width: 80%;
 	height: 110vh;
 	position: fixed;
@@ -54,14 +54,10 @@ body
 	width: 100%;
 	color:white;
 	font-size: large;
-	padding-bottom: 20px;
+	padding-bottom: 30px;
 }
 
-.sidebar a:hover
-{
-	background-color:#F0F8FF;
-	color:black;
-}
+
 
 
 .title
@@ -69,11 +65,6 @@ body
 	margin-top: 3%;
 	border-radius: 20px;
 	
-}
-.sidebar a:active
-{
-	background-color:#F0F8FF;
-	color:black;
 }
 
 .sidebar .divider
@@ -109,16 +100,32 @@ body
 	padding: 10px;
 	box-shadow: 5px 5px 10px;
 }
+@media only screen and (max-width:800px)
+{
 .card-body11
 {
 	margin-top:25%;
 	margin-left:56%;
-	width: 160%;
+	width: 60%;
+	background-color:rgb(243, 243, 243);
+	border-radius: 30px;
+	padding: 10px;
+	box-shadow: 5px 5px 10px;
+	position: absolute;
+}
+}
+
+.card-body11
+{
+	margin-top:1%;
+	margin-left:60%;
+	width: 130%;
 	background-color:rgb(243, 243, 243);
 	border-radius: 30px;
 	padding: 10px;
 	box-shadow: 5px 5px 10px;
 }
+
 .card-body12
 {
 	margin-top:1%;
@@ -127,6 +134,17 @@ body
 	background-color:rgb(243, 243, 243);
 	border-radius: 30px;
 	padding: 10px;
+}
+
+.card-body13
+{
+	margin-top:5%;
+	margin-left:50%;
+	width: 170%;
+	background-color:rgb(243, 243, 243);
+	border-radius: 30px;
+	
+	box-shadow: 5px 5px 10px;
 }
 
 .table
@@ -149,8 +167,8 @@ body
 
 .card1-body
 {
-	margin-top:9%;
-	margin-left:3%;
+	margin-top:1%;
+	margin-left:0%;
 	padding:5px;
 	width:110%;
 	height:200%;
@@ -184,6 +202,19 @@ body
 	margin-left: 8%;
 	box-shadow: 5px 5px 10px;
 }
+#backColor1
+{
+	margin-top:20%;
+	margin-left:30%;
+	padding:30px;
+	background-color:rgb(243, 243, 243);
+	width: 190%;
+	height: 30%;
+	position:static;
+	border-radius: 20px;
+	margin-left: 10%;
+	box-shadow: 5px 5px 10px;
+}
 .my_profile_picture
 {
 	width: 30px;
@@ -210,4 +241,16 @@ body
 	box-shadow: 5px 5px 10px;
 	padding: 20px;
 
+}
+
+.sidebar a:hover
+{
+	background-color:#F0F8FF;
+	color:black;
+}
+
+.active
+{
+	background-color:#F0F8FF;
+	color:black!important;
 }

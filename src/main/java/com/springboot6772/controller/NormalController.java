@@ -235,8 +235,11 @@ public class NormalController
 		 return "signup";
 		 
 	 }
-	
-	
+	@GetMapping("/contactUs")
+	public String contactUs()
+	{
+		return "contactUs";
+	}
 	
 //	@ModelAttribute
 //	public void addCommonData(Model m,Principal principal)

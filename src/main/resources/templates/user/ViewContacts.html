@@ -7,98 +7,136 @@
 </head>
 <body>
 	<section>
-	  
-	 <div class="card1-body">
-		<div class="title">
-		 <a href="/addcontact" style="text-decoration: none; margin-left: 4%;font-size: large;"><i class="fa-solid fa-circle-arrow-left"></i> Add Contact</a>
-		   <div style="margin-left: 46%; position: relative; width: 60%;">
-		       <input id="search-input " type="text" class="form-control" name="keyword" placeholder="Search contact here" style="border-radius: 40px;width: 100%;">	
-		        <button type="submit" class="btn btn-primary" style="margin-left:100%;margin-top:4%; "><a th:href="@{/search}" style="color: white; text-decoration: none;">Search</a></button>
-		   </div>
-	
-		 
-		 
-			
-			  
-			<h2 align="center" style=" margin: 0% 0 3% 28%;">Your Contacts</h2>
-		
-		
-		<div class="container">
-		
-			<table class="table table-striped" style="width: 110%;  border-radius: 10px; margin-left: 11%; box-shadow: 5px 5px 10px;">
-				<thead  style="text-align: center; ">
-					<tr>
-                      
-						<th scope="col">Person Name</th>
-						<th scope="col">Nick Name</th>
-						<th scope="col">Mobile No</th>
-						<th scope="col">Email</th>
-						<th scope="col">Work</th>
-						<th scope="col">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="contact:${listContact}">
-                        
-                     <!--    <td > 
+
+
+        
+		<div style=" margin-top: 13%; width: 60%;">
+           <a href="/addcontact" style="text-decoration: none;  margin-left: 4%; font-size: large;"><i
+					class="fa-solid fa-circle-arrow-left"></i> Add Contact</a>
+			<form th:action="@{/search}" method="post" style="margin-left: 70%; width:100%;">
+				<div class="row" style="width: 120%;">
+				  
+				
+					<div class="col-sm-8">
+						<input type="text" class="form-control" 
+							placeholder="Search contact here" name="keyword" style="border-radius: 40px;">
+					</div>
+					<div class="col-sm-3">
+						<input type="submit" class="btn btn-primary" value="Search" >
+							
+					</div>
+				</div>
+			</form>
+			<!--  <form action="">
+		        <input  type="text" class="form-control" name="keyword" placeholder="Search contact here" style="border-radius: 40px;">	
+		        <input type="submit" value="Search"/ >  
+		    </form> -->
+		</div>
+		<div class="card1-body">
+			<div class="title">
+				
+
+				<h2 align="center" style="margin: 0% 0 3% 52%;">Your Contacts</h2>
+
+
+				<div class="container">
+
+					<table class="table table-striped"
+						style="width: 120%; border-radius: 10px; margin-left: 20%; box-shadow: 5px 5px 10px;">
+						<thead style="text-align: center;">
+							<tr>
+
+								<th scope="col">Person Name</th>
+
+								<th scope="col">Mobile No</th>
+								<th scope="col">Email</th>
+
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="contact:${listContact}">
+
+								<!--    <td > 
 						<img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact.personImage}}" />
 						
 						<span th:text="${contact.personImage}"></span></td> -->
-                        
-						<td ><img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact.personImage}}" />  <span th:text="${contact.personName}"></span></td>
-						<td th:text="${contact.nickName}"></td>
-						<td th:text="${contact.mobileNo}"></td>
-						<td th:text="${contact.personEmail}"></td>
-						<td th:text="${contact.personWork}"></td>
-						
-						
-						<td><!-- <button type="button" class="btn btn-primary"> -->
-								<a	th:href="@{/editContact{contactId}(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color:blue;"><i class="fa-solid fa-pen-to-square"></i>Edit</a> | 
-							<!-- <button type="button" class="btn btn-danger"> -->
-								<a th:href="@{/deleteContact{contactId}(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color: blue;"><i class="fa-solid fa-trash-can"></i> Delete</a>
-							</td>
-					</tr>
 
-				</tbody>
-			</table>
-			</div>
-			</div>
-			</div>
+								<td><img src="" class=" my_profile_picture"
+									th:src="@{'/img/'+${contact.personImage}}"
+									style="text-align: left;" /> <span
+									th:text="${contact.personName}"></span></td>
 
-		<!-- 	<div th:if="${totalpages >1 }" style="margin-left: 15%; border: 2px red;">
-			<div class="row col-sm-10" >
-			   <div class="col-cm-2">
-			         Total Rows: [[${totalitems}]]
-			   </div><br>
-			   <div class="col-cm-1" style="margin-left: 10px; border: 2px black;">
-			      <span th:each=" i : ${#numbers.sequence(1,totalpages)}">
-			       <a th:if="${currentpage!= i }" th:href="@{'/page/'+${i}}">[[${i}]]</a>
-			       <span th:unless="${currentpage !=i}">[[${i}]]</span>&nbsp;
-			      </span>    
-			    </div>
-			    <div class="col-cm-1">
-			      <a th:if="${currentpage<totalpages}" th:href="@{'/page/'+${currentpage + 1}}">Next</a>
-			      <span th:unless="${currentpage < totalpages}">Next</span>
-			    </div>
-			    
-			     <div class="col-cm-1" style="margin-left: 10px;">
-			      <a th:if="${currentpage<totalpages}" th:href="@{'/page/'+${currentpage + 1}}">Last</a>
-			      <span th:unless="${currentpage < totalpages}">Last</span>
-			    </div>
-			
+								<td th:text="${contact.mobileNo}" style="text-align: center;"></td>
+								<td th:text="${contact.personEmail}" style="text-align: center;"></td>
+
+
+								<td style="text-align: center;">
+									<!-- <button type="button" class="btn btn-primary"> --> <a
+									th:href="@{/editContact{contactId}(contactId=${contact.contactId})}"
+									style="color: white; text-decoration: none; color: blue;"><i
+										class="fa-solid fa-pen-to-square"></i>Edit</a> | <!-- <button type="button" class="btn btn-danger"> -->
+									<a
+									th:href="@{/deleteContact{contactId}(contactId=${contact.contactId})}"
+									style="color: white; text-decoration: none; color: blue;"><i
+										class="fa-solid fa-trash-can"></i> Delete</a> <a
+									th:href="@{/viewContactDetail{contactId}(contactId=${contact.contactId})}"><i
+										class="far fa-eye" style="margin-left: 4px;"></i></a>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+					<!-- <div th:if="${totalPages>1}">
+						<div class="row">
+							<div class="col-sm-2">
+								<span th:each="i:${#numbers.sequence(1,totalPages)}"> <a
+									th:if="${currentPage!=i}" th:href="@{'/page/'+${i}}">[[${i}]]</a>
+									<span th:unless="${currentPage!=i}">[[${i}]]</span>
+								</span>
+							</div>
+							<div class="col-sm-2">
+							  <a th:if="${currentPage<totalPages}" th:href="@{'/page/'+${currentPage+1}}">Next</a>
+							  <span th:unless="${currentPage<totalPages}">Next</span>
+							</div>
+						</div>
+					</div> -->
+				</div>
+				</div>
 			</div>
-			
-			</div> -->
-				<!-- <nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<li  th:if=" ${currentpage+1==0}" class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li  th:classappend="${currentpage==i-1?'active':''}"  th:each=" i : ${#numbers.sequence(1,totalpages)}" class="page-item"><a  th:href="@{'/viewContacts{userId}/{page}/'+${i-1}}"  class="page-link" href="#"><span th:text="${i}"></span></a></li>
-						<li  th:if="${currentpage+1 !=totalpages}"  class="page-item"><a  th:href="@{'/viewContacts{userId}/{page}/'+${currentpage+1}}"class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>
-			 -->
-		
-		
+		   
+<nav aria-label="Page navigation example">
+  <ul class="pagination text-center">
+    <li th:if="${currentPage!=0}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage-1}}">Previous</a></li>
+    <li  th:each="p:${#numbers.sequence(1,totalPages)}" class="page-item"><a th:if="${currentPage!=p}"class="page-link" th:href="@{'/page/'+${p-1}}"><span th:text="${p}"></span></a></li>
+   
+    <li th:if="${currentPage+1<totalPages}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage+1}}">Next</a></li>
+  </ul>
+</nav>
+	
+	
+	
+	
+	<!-- <nav aria-label="Page navigation example">
+  <ul class="pagination page">
+    <li th:if="${currentPage!=0}"  class="page-item"><a th:href="@{'/viewStudents/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
+    
+    <li  th:classappend="${currentPage==i-1?'active':''}" th:each ="i: ${#numbers.sequence(1,totalPages)}"  class="page-item"><a th:href="@{'/viewStudents/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+   
+    <li  th:if="${currentPage+1<=totalPages}"  class="page-item"><a th:href="@{'/viewStudents/'+${currentPage+1}}" class="page-link" href="#">Next</a></li>
+  </ul>
+</nav> -->
+	
+	
+		   
+
+ <script >
+      $(document).ready(()=>
+      {
+        $(".nav-link").removeClass("active");
+        $("#view-link").addClass("active");
+      });
+    </script>
 	</section>
 </body>
 </html>

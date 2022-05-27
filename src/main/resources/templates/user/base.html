@@ -44,18 +44,18 @@
       <ul class="navbar-nav ml-auto" style="font-size: 20px;" >
     
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link" aria-current="page" href="/">Home</a>
         </li>
         
         <li class="nav-item">
          <div class="dropdown">
-               <a class="nav-link active dropdown-toggle" data-toggle="dropdown" aria-current="page" href="#"> <img src="" class=" my_profile_picture" th:src="@{'/img/'+${session.user1.profileImage}}" /><span th:text="${session.user1.userName}"></span></a>
+               <a class="nav-link  dropdown-toggle" data-toggle="dropdown" aria-current="page" href="#"> <img src="" class=" my_profile_picture" th:src="@{'/img/'+${session.user1.profileImage}}" /><span th:text="${session.user1.userName}"></span></a>
                <div class="dropdown-menu" style="background: none;">
                 
-                  <a href="viewProfile" class="nav-link active"><i class="fas fa-user-circle"></i> View Profile</a>
-                    <a class="nav-link active" aria-current="page" th:href="@{/signout{userId}(userId=${session.userId})}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
+                  <a href="viewProfile" class="nav-link "><i class="fas fa-user-circle"></i> View Profile</a>
+                    <a class="nav-link " aria-current="page" th:href="@{/signout{userId}(userId=${session.userId})}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
               
-                   <a class="nav-link active" aria-current="page" href="login">Logout</a>
+                   <a class="nav-link " aria-current="page" href="login">Logout</a>
                   </div>
          </div>
          
@@ -72,20 +72,20 @@
 
 </nav>
   
-  
+  <!-- {userId}(userId=${session.userId})} -->
   
    <!--Sidebar start  -->
   <section class="sidebar">
        
-       <a href="home" class="nav-link active"> <i class="fa-solid fa-house-chimney-user"></i> Home</a>
-       <a href="addcontact" class="nav-link active"> <i class="fas fa-pencil-alt"></i> Add Contact</a>
-       <a th:href="@{/viewContacts{userId}(userId=${session.userId})}" class="nav-link active"><i class="fas fa-id-card-alt"></i> View Contact</a>
-        <a href="profile" class="nav-link active"><i class="fas fa-user-circle"></i> Upload Profile</a>
+       <a id="home-link" href="home" class="nav-link "> <i class="fa-solid fa-house-chimney-user"></i> Home</a>
+       <a id="add-link" href="addcontact" class="nav-link "> <i class="fas fa-pencil-alt"></i> Add Contact</a>
+       <a id="view-link"th:href="@{/viewContacts}" class="nav-link "><i class="fas fa-id-card-alt"></i> View Contact</a>
+       
         <div class="dropdown">
-           <a href="#" class="nav-link active dropdown-toggle" data-toggle="dropdown"><i class="fas fa-cogs"></i> Settings</a> 
+           <a href="#" class="nav-link  dropdown-toggle" data-toggle="dropdown"><i class="fas fa-cogs"></i> Settings</a> 
            <div class="dropdown-menu" style="background:#A8A8A8; ">
-               <a href="/changepass" class="nav-link active"><i class="fa fa-unlock-alt" aria-hidden="true"></i> Change Password</a>
-                <a href="#" class="nav-link active"><i class="fas fa-user-circle"></i> Remove Profile Photo</a>
+                <a id="upload-link" href="profile" class="nav-link "><i class="fas fa-user-circle"></i> Upload Profile Photo</a>
+               <a id="change-link"href="/changepass" class="nav-link "><i class="fa fa-unlock-alt" aria-hidden="true"></i> Change Password</a>
            </div>
         </div>
         

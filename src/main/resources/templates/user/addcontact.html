@@ -10,7 +10,9 @@
 	<section>
 	<!-- <a style="margin-top:20%;margin-left: 20%;"><i class="fa-solid fa-circle-arrow-left"></i>Back</a> -->
 		<div class="Card">
-			<div class="card-body11">
+		<h2 style="margin-top: 20%;"></h2>
+		<a href="/home" style="font-size: large; text-decoration: none;"><i class="fa-solid fa-circle-arrow-left"></i> Back</a>
+			<div class="card-body11 ">
 			 
 				<h3 class="text-center" style="margin-top: 1%;">Add Contact</h3>
 				<div class="container-fluid mt-1">
@@ -86,7 +88,7 @@
 										</div>
 										 -->
 										<textarea  class="form-control" name="personDescription"
-											id="inlineFormInputGroup" placeholder="Description" rows="3" cols="10"></textarea>
+											id="inlineFormInputGroup" placeholder="Description" rows="2" cols="10"></textarea>
 								<!-- 	</div>-->
 								</div> 
 								
@@ -108,6 +110,14 @@
 				</div>
 			</div>
 		</div>
+		
+		 <script >
+      $(document).ready(()=>
+      {
+        $(".nav-link").removeClass("active");
+        $("#add-link").addClass("active");
+      });
+    </script>
 	</section>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <body>
 	<section>
 	<h2 style="margin-top: 20%;"></h2>
-	<a style="margin-top: 10%;" th:href="@{/viewContacts{userId}(userId=${session.userId})}"><i class="fa-solid fa-circle-arrow-left"></i>View Contact</a>
+	<a style="margin-top: 10%; text-decoration: none;" th:href="@{/viewContacts{userId}(userId=${session.userId})}"><i class="fa-solid fa-circle-arrow-left"></i>View Contact</a>
 		<div class="Card">
 		  	<div class="card-body1">
 				<h2 class="text-center">Update Contact</h2>
@@ -86,7 +86,7 @@
 										</div>
 										 -->
 										<textarea  class="form-control" name="personDescription"
-											id="inlineFormInputGroup" placeholder="Description" rows="3" cols="10"></textarea>
+											id="inlineFormInputGroup" placeholder="Description" rows="2" cols="10"></textarea>
 								<!-- 	</div>-->
 								</div> 
 								
@@ -96,7 +96,7 @@
 											<div class="input-group-text"><i class="fa-solid fa-image"></i></div>
 										</div> -->
 										<input type="file" class="form-control" name="person_Image" th:value="${contact.personImage}"
-											id="inlineFormInputGroup" placeholder="Person Image" style="border-style: none;">
+											id="inlineFormInputGroup" placeholder="Person Image"  style="border-style: none;">
 									<!-- </div> -->
 								</div>
 								

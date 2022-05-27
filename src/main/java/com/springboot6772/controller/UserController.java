@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
@@ -112,7 +113,7 @@ public class UserController
 			
 			contact.setUsers(user1);
 			this.contactservice.addContact(contact);
-					
+		
 		
 			session.setAttribute("message", new Message("Contact added successfully","alert-success"));
 			
@@ -122,21 +123,83 @@ public class UserController
            System.out.println(e);
 		}
 		
-		return "redirect:/viewContacts{userId}";
+		return "redirect:/viewContacts";
 	}
 	
 
-	@GetMapping("/viewContacts{userId}")
-	public String viewContacts(@PathVariable("userId") int userId,Model model)
+	@GetMapping("/viewContacts")
+	public String viewContacts(Model model,HttpSession session)
 	{
-		
-		List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
-		
-		model.addAttribute("listContact",contactDetails);
-		
-		return "user/ViewContacts";
-		//return viewPagination(1,model);
+//		int userId=(int) session.getAttribute("userId");
+//		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
+//		model.addAttribute("listContact",contactDetails);
+//		return "user/ViewContacts";
+		return showContacts(model, 0,session);
 	}
+	
+	@GetMapping("/showSearch")
+	public String search(HttpSession session,Model model)
+	{
+		int userId=(int) session.getAttribute("userId");
+		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
+		model.addAttribute("listContact",contactDetails);
+		return "user/ViewContacts";
+	}
+//	@PostMapping("/search")
+//	public String searchContact(Model model,@Param("keyword") String keyword,HttpSession session)
+//	{
+//		int userId=(int) session.getAttribute("userId");
+//		List<Contact>contactDetails=contactservice.getAllContacts(userId, keyword);
+//        model.addAttribute("listContact",contactDetails);
+//		
+//		return "redirect:/showSearch";
+//	}
+	
+	@PostMapping("/search")
+	public String searchContact(Model model,@Param("keyword") String keyword,HttpSession session)
+	{
+		int userId=(int) session.getAttribute("userId");
+		User user=userservice.getUserByUserId(userId);
+		List<Contact> contactDetails1=this.contactRepo.findByNameContainingAndUser(keyword, user);
+		//List<Contact>contactDetails=contactservice.getAllContacts(userId, keyword);
+        model.addAttribute("listContact",contactDetails1);
+        return showContacts(model, 0,session);
+        //return "user/ViewContacts";
+	}
+	
+	//Pagination
+	
+	@GetMapping("/page/{pageNumber}")
+	public String showContacts(Model model,@PathVariable int pageNumber,HttpSession session)
+	{
+		int userId=(int) session.getAttribute("userId");
+		System.out.println("USerId+++++++++++++++++++++++++++++++++++++++++++"+userId);
+		
+		Pageable pageable=PageRequest.of(pageNumber, 4);
+		Page<Contact> page =this.contactservice.getAllContactsByUserId(userId, pageable);
+		//List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
+		model.addAttribute("listContact", page);
+		model.addAttribute("currentPage",pageNumber);
+		model.addAttribute("totalPages",page.getTotalPages());
+		
+	    //model.addAttribute("listContact",contactDetails);
+		return "user/ViewContacts";
+		
+//		
+//		int pageSize=5;
+//		Page<Contact> page=contactservice.findPagination(pageNumber, pageSize,userId);
+//		List<Contact>listContact=page.getContent();
+//     	model.addAttribute("currentpage", pageNumber);
+//		model.addAttribute("totalpages", page.getTotalPages());
+//		model.addAttribute("totalitems", page.getTotalElements());
+//		model.addAttribute("listContact", listContact);
+//	
+////		//model.addAttribute("listcontact", listContact1);
+//		return "user/ViewContacts";		
+//				
+//		
+	}
+	
 	
 //	@GetMapping("/viewContacts{userId}/{pageNo}/{pageSize}")
 //	public List<Contact> getPagination(@PathVariable("userId") int userId,@PathVariable int pageNo,@PathVariable int pageSize)
@@ -166,11 +229,12 @@ public class UserController
 	}
     
 	@PostMapping("/saveUpdateContact{contactId}")
-	public String update_Contact( @ModelAttribute Contact contact,@PathVariable("contactId") int contactId,HttpSession session,@RequestParam("person_Image") MultipartFile file) throws IOException
+	public String update_Contact( @ModelAttribute Contact contact,@PathVariable("contactId") int contactId,HttpSession session,Model model,@RequestParam("person_Image") MultipartFile file) throws IOException
 	{
+		int userId= this.contactservice.getContactByContactId(contactId).getUsers().getUserId();
 		if(file.isEmpty())
 		{
-
+            contact.setPersonImage("default.png");
 			System.out.println("File is empty");
 			System.out.println("-----------------------------message 1");
 		}
@@ -186,8 +250,18 @@ public class UserController
 		
 		this.contactservice.updateContact(contact, contactId);
 		session.setAttribute("message1", new Message("Contact Updated successfully","alert-success"));
+		session.setAttribute("contact1", contact);
 		
-		return "redirect:/editContact{contactId}";
+		
+		
+		  List<Contact> contactDetails=this.contactservice.getContactByUserId(userId);
+		  
+		  model.addAttribute("listContact",contactDetails);
+		  
+		  return "redirect:/viewContacts";
+		 
+		
+		//return "redirect:/editContact{contactId}";
 	}
 	
 //	@GetMapping("/deleteContact{contactId}")
@@ -213,7 +287,7 @@ public class UserController
 		
 		model.addAttribute("listContact",contactDetails);
 		
-		return "user/ViewContacts";
+		return "redirect:/viewContacts";
 		  //return "redirect:/viewContacts{userId}";
 		
 	}
@@ -260,26 +334,27 @@ public class UserController
 	
 	//pagination code
 	
-	@GetMapping("/page/{pageNo}")
-	public String viewPagination(@PathVariable(value="pageNo") int pageNo, Model model)
-	{
-        
-		///List<Contact>listContact1=this.contactservice.getContactByUserId(userId);
-		
-		//model.addAttribute("listContact",contactDetails);
-		//User user1=this.userservice.getUserByUserId(userId);
-	    
-		int pageSize=5;
-		Page<Contact> page=contactservice.findPagination(pageNo, pageSize);
-		List<Contact>listContact=page.getContent();
-		model.addAttribute("currentpage", pageNo);
-		model.addAttribute("totalpages", page.getTotalPages());
-		model.addAttribute("totalitems", page.getTotalElements());
-		model.addAttribute("listContact", listContact);
-		//model.addAttribute("listcontact", listContact1);
-		return "user/ViewContacts";		
-		
-	}
+//	@GetMapping("/page/{pageNo}")
+//	public String viewPagination(@PathVariable(value="pageNo") int pageNo, Model model)
+//	{
+//        
+//		///List<Contact>listContact1=this.contactservice.getContactByUserId(userId);
+//		
+//		//model.addAttribute("listContact",contactDetails);
+//		//User user1=this.userservice.getUserByUserId(userId);
+//	    
+//		int pageSize=5;
+//		Page<Contact> page=contactservice.findPagination(pageNo, pageSize,userId);
+//		List<Contact>listContact=page.getContent();
+//		model.addAttribute("currentpage", pageNo);
+//		model.addAttribute("totalpages", page.getTotalPages());
+//		model.addAttribute("totalitems", page.getTotalElements());
+//		model.addAttribute("listContact", listContact);
+//	
+//		//model.addAttribute("listcontact", listContact1);
+//		return "user/ViewContacts";		
+//		
+//	}
 	
 	@GetMapping("/signout{userId}")
 	public String signout(@PathVariable("userId")int userId,HttpSession session)
@@ -306,10 +381,35 @@ public class UserController
 		return "user/changePassword";
 	}
 	
-
-//	public String deletePhoto()
-//	{
-//		//this.userRepo.deleteById(null);
-//	}
+	@GetMapping("/viewContactDetail{contactId}")
+   public String viewContactDetails(@PathVariable("contactId")int contactId,HttpSession session,Model model)
+   { 
+		//User user11=(User) session.getAttribute("user1");
+		
+		// Contact contact=(Contact) contactservice.getContactByUserId(user11.getUserId());
+		Contact contact=this.contactservice.getContactByContactId(contactId);
+		//contact.setPersonImage("default.png");
+		model.addAttribute("contact1", contact);
+		//session.setAttribute("contact1", contact);
+		System.out.println("USer Id++++++++++++++++++++++++++++++++++++++++++++++++"+contact.getUsers().getUserId());
+		System.out.println("PersonImage++++++++++++++++++++++++++++++++++++++++++++"+contact.getPersonImage());
+	   return "user/ViewContactDetail";
+		//return "user/viewProfile";
+   }
+    
+	@PostMapping("/sendsms")
+	public String SendMsg(@RequestBody Contact contact)
+	{
+		try
+		{
+			System.out.println(contact.getMobileNo());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return "Message sent successfully";
+	}
+	
 }
 

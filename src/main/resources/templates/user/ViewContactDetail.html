@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Profile</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+
+			
+				<label style="margin-top: 21%; margin-left:120%; font-size:xx-large;font-weight:500;">Details </label>
+				
+					
+			<div class="card-body13">
+			<a href="#" style="height: 20px; width: 20px;"><img src="../img/message.png" style="height:9%; width:9%; border-radius: 50%;margin-left: 87%;margin-top: 1%; background-color: white;"></a>
+			
+				 <div class="table text-center ">
+				 <form th:object="${contact1}">
+				 
+				      <img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact1.personImage}}"  style="height:80px; width:80px; margin-bottom:2%; border-radius: 50%;" />	
+					<table 	style=" font-size: large;margin-left:23%; ">
+							
+						<tbody >
+						
+						    <tr>
+								<td><strong>Person Name: </strong></td>
+								<td th:text="${contact1.personName}"></td>
+							</tr>
+						
+							<tr>
+								<td><strong>Nick Name: </strong></td>
+								<td th:text="${contact1.nickName}"></td>
+							</tr>
+							
+							<tr>
+								<td><strong>Mobile Number: </strong></td>
+								<td th:text="${contact1.mobileNo}"></td>
+							</tr>
+                            
+                            <tr>
+								<td><strong>Email Id: </strong></td>
+								<td th:text="${contact1.personEmail}"></td>
+							</tr>
+
+							<tr>
+								<td><strong>Person Work: </strong></td>
+								<td th:text="${contact1.personWork}"></td>
+							</tr>
+						</tbody>
+
+						<tr>
+							<td><strong>Description:</strong></td>
+							<td th:text="${contact1.personDescription}"></td>
+						</tr>
+						</tbody>
+
+					</table>
+					</form>
+				</div>
+			</div>
+		
+</div>
+   <script >
+      $(document).ready(()=>
+      {
+        $(".nav-link").removeClass("active");
+        $("#view-link").addClass("active");
+      });
+    </script>
+
+	</section>
+</body>
+</html>

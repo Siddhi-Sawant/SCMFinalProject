@@ -31,20 +31,28 @@ public class ContactServiceImplementation implements ContactService
 	}
 
 	@Override
-	public List<Contact> getAllContacts()
+	public List<Contact> getAllContacts(int userId,String keyword)
 	{
-		
-		return contactRepo.findAll();
+		 User  user=  this.userRepo.findById(userId).get();
+	  
+		  if(keyword !=null)
+		  {
+		     return contactRepo.findAll(keyword);  
+		  
+		  }
+		  
+		  
+	    return user.getContacts();
+	  
 	}
 
 	@Override
-	public List<Contact> getContactByUserId(int userId )
+	public List<Contact> getContactByUserId(int userId)
 	{
 		
 	   User  user=  this.userRepo.findById(userId).get();
-	   //return pageResult.toList();
-	  // return user.getContacts();
-	   //return user.getContacts();
+	   
+	   
 	  return   user.getContacts();
 	}
 
@@ -84,12 +92,22 @@ public class ContactServiceImplementation implements ContactService
  
 	//pagination
 	@Override
-	public Page<Contact> findPagination(int pageNo, int pageSize)
+	public Page<Contact> findPagination(int pageNo, int pageSize,int userId)
 	{
 	  
        Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-	   return this.contactRepo.findAll(pageable);
+	  // return this.contactRepo.findAll(pageable);
+       return this.contactRepo.findContactByUser(userId, pageable);
        //return user.getContacts();
+	}
+
+	@Override
+	public Page<Contact> getAllContactsByUserId(int userId,Pageable pageable)
+	{
+		//User user=this.userRepo.findById(userId).get();
+		
+		 return  contactRepo.findContactByUser(userId, pageable) ;
+		//return contactRepo.findAll(pageable);
 	}
 
 	

@@ -6,12 +6,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.springboot6772.entity.Contact;
+import com.springboot6772.entity.User;
 
 public interface ContactService 
 {
   public void addContact(Contact contact);
   
-  public List<Contact> getAllContacts();
+  public List<Contact> getAllContacts(int userId,String keyword);
   
   
    public List<Contact>  getContactByUserId(int userId);
@@ -29,6 +30,10 @@ public interface ContactService
   
   //pagination
    
-   Page<Contact> findPagination(int pageNo,int pageSize);
+   Page<Contact> findPagination(int pageNo,int pageSize,int userId);
+   
+   
+   //Pagination1
+   public Page<Contact> getAllContactsByUserId( int userId ,Pageable pageable);
    
   }

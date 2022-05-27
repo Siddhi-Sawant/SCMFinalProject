@@ -16,7 +16,7 @@
            <div class="profile" >
            
              
-             <form action="#" th:action="@{/uploaded{userId}(userId=${session.userId})}" method="post" enctype="multipart/form-data" style="background-color:rgb(230, 230, 230); margin-left:60%; width:100%;padding: 20px; border-radius: 10px;box-shadow: 5px 5px 10px;">
+             <form action="#" th:action="@{/uploaded{userId}(userId=${session.userId})}" method="post" enctype="multipart/form-data" style="background-color:rgb(230, 230, 230); margin-left:60%; width:100%;padding:20px 40px 40px 40px; border-radius: 10px;box-shadow: 5px 5px 10px;">
                 <div style="margin-bottom: 3%;">
                 <img alt="" src="../img/photo.png" style="height:80px;width:80px; margin: 0 0 2% 42%; border-radius: 50%;"></div>
                  <div th:if="${session.message3}" th:classappend="${session.message3.messageType}" class="alert" role="alert">
@@ -31,6 +31,14 @@
          </div>
        </div>
      </div>
+      <script >
+      $(document).ready(()=>
+      {
+        $(".nav-link").removeClass("active");
+        $("#upload-link").addClass("active");
+      });
+    </script>
+     
   </section>
 </body>
 </html>
