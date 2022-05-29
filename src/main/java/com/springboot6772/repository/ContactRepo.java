@@ -22,7 +22,7 @@ public interface ContactRepo extends JpaRepository<Contact, Integer>
 	public List<Contact> findAll(String keyword);
    
 	@Query("SELECT c FROM Contact c WHERE c.personName LIKE %?1%")
-     public List<Contact> findByNameContainingAndUser(String personName,User user);
+     public List<Contact> findByNameContainingAndUser(String personName,User user,Pageable pageable);
 	
-	
+	public Contact findContactBypersonName(String personName);
 }

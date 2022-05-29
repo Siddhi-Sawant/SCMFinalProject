@@ -113,7 +113,7 @@ public class UserController
 			
 			contact.setUsers(user1);
 			this.contactservice.addContact(contact);
-		
+		   
 		
 			session.setAttribute("message", new Message("Contact added successfully","alert-success"));
 			
@@ -130,46 +130,36 @@ public class UserController
 	@GetMapping("/viewContacts")
 	public String viewContacts(Model model,HttpSession session)
 	{
+		int userId=(int) session.getAttribute("userId");
+		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
+		model.addAttribute("listContact",contactDetails);
+//		return "user/ViewContacts";
+		return showContacts(model, 0, session);
+	}
+	
+//	@GetMapping("/showSearch")
+//	public String search(HttpSession session,Model model)
+//	{
 //		int userId=(int) session.getAttribute("userId");
 //		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
 //		model.addAttribute("listContact",contactDetails);
 //		return "user/ViewContacts";
-		return showContacts(model, 0,session);
-	}
-	
-	@GetMapping("/showSearch")
-	public String search(HttpSession session,Model model)
-	{
-		int userId=(int) session.getAttribute("userId");
-		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
-		model.addAttribute("listContact",contactDetails);
-		return "user/ViewContacts";
-	}
-//	@PostMapping("/search")
-//	public String searchContact(Model model,@Param("keyword") String keyword,HttpSession session)
-//	{
-//		int userId=(int) session.getAttribute("userId");
-//		List<Contact>contactDetails=contactservice.getAllContacts(userId, keyword);
-//        model.addAttribute("listContact",contactDetails);
-//		
-//		return "redirect:/showSearch";
 //	}
-	
-	@PostMapping("/search")
+	@GetMapping("/search")
 	public String searchContact(Model model,@Param("keyword") String keyword,HttpSession session)
 	{
-		int userId=(int) session.getAttribute("userId");
-		User user=userservice.getUserByUserId(userId);
-		List<Contact> contactDetails1=this.contactRepo.findByNameContainingAndUser(keyword, user);
-		//List<Contact>contactDetails=contactservice.getAllContacts(userId, keyword);
-        model.addAttribute("listContact",contactDetails1);
-        return showContacts(model, 0,session);
-        //return "user/ViewContacts";
-	}
+		//int userId=(int) session.getAttribute("userId");
+		List<Contact>contactDetails=this.contactRepo.findByNameContainingAndUser(keyword, null, null);
+        model.addAttribute("listContact",contactDetails);
+		
+		//return "redirect:/showSearch";
+        return "";
+     }
+	
 	
 	//Pagination
 	
-	@GetMapping("/page/{pageNumber}")
+	@GetMapping("/viewContacts/{pageNumber}")
 	public String showContacts(Model model,@PathVariable int pageNumber,HttpSession session)
 	{
 		int userId=(int) session.getAttribute("userId");
@@ -185,7 +175,6 @@ public class UserController
 	    //model.addAttribute("listContact",contactDetails);
 		return "user/ViewContacts";
 		
-//		
 //		int pageSize=5;
 //		Page<Contact> page=contactservice.findPagination(pageNumber, pageSize,userId);
 //		List<Contact>listContact=page.getContent();
@@ -274,7 +263,6 @@ public class UserController
 //	}
 	
 	 @GetMapping("/deleteContact{contactId}")
-	//@GetMapping("/viewContacts{userId}")
 	public String deleteContact(@PathVariable("contactId") Integer contactId, Model model)
 	{
 	   int userId= this.contactservice.getContactByContactId(contactId).getUsers().getUserId();

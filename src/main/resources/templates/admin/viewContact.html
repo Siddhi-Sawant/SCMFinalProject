@@ -8,54 +8,110 @@
 <body>
 	<section>
 	  
-	 <div class="card1-body" >
-		<div class="title">
-		 <a href="/addcontact" style="text-decoration: none; margin-left: 6%;font-size: large;"><i class="fa-solid fa-circle-arrow-left"></i> Add Contact</a>
-			<h2 align="center" style="margin-left:10%; margin: 0 0 2% 0;">Your Contacts</h2>
-		</div>
-		<div class="container">
-			<table class="table table-striped" style="width: 130%;  border-radius: 10px; margin-left: 18%;">
-				<thead  style="text-align: center; ">
-					<tr>
+	<div class="card1-body">
+			<div class="title">
+				 <a href="/viewUser" style="text-decoration: none;  margin-left: 4%; font-size: large;"><i
+					class="fa-solid fa-circle-arrow-left"></i> View User</a>
 
-						<th scope="col">Person Name</th>
-						<th scope="col">Nick Name</th>
-						<th scope="col">Mobile No</th>
-						<th scope="col">Email</th>		
-						<th scope="col">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="contact:${contactObj}">
+				<h2 align="center" style="margin: 0% 0 3% 52%;">User Contacts</h2>
 
-						<td> <img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact.personImage}}" alt="prfile photo" style="height:30px; width:30px; border-radius: 50%;" />		
-					 <span th:text="${contact.personName}"></span></td>
-						<td th:text="${contact.nickName}"></td>
-						<td th:text="${contact.mobileNo}"></td>
-						<td th:text="${contact.personEmail}"></td>
+
+				<div class="container">
+
+					<table class="table table-striped"
+						style="width: 120%; border-radius: 10px; margin-left: 20%; box-shadow: 5px 5px 10px;">
+						<thead style="text-align: center;">
+							<tr>
+
+								<th scope="col">Person Name</th>
+
+								<th scope="col">Mobile No</th>
+								<th scope="col">Email</th>
+
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="contact:${contactObj}">
+
+								<!--    <td > 
+						<img src="" class=" my_profile_picture" th:src="@{'/img/'+${contact.personImage}}" />
 						
-						<!-- <td > 
-							<span th:text="${contact.personImage}"></span></td>-->
-						<td> 
-								<a th:href="@{/deleteContact(contactId=${contact.contactId})}" style="color: white; text-decoration: none;color: blue;"><i class="fa-solid fa-trash-can"></i> Delete</a>
-							</td>
-					</tr>
+						<span th:text="${contact.personImage}"></span></td> -->
 
-				</tbody>
-			</table>
-			</div>
-			</div>
+								<td><img src="" class=" my_profile_picture"
+									th:src="@{'/img/'+${contact.personImage}}"
+									style="text-align: left; width: 30px;height:30px;border-radius: 50%;" /> <span
+									th:text="${contact.personName}"></span></td>
 
-			<div class="page" style="margin-left: 44%; margin-bottom: 3%;">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>
+								<td th:text="${contact.mobileNo}" style="text-align: center;"></td>
+								<td th:text="${contact.personEmail}" style="text-align: center;"></td>
+
+
+								<td style="text-align: center;">
+									<!-- <button type="button" class="btn btn-primary"> --> <a
+									th:href="@{/editContact{contactId}(contactId=${contact.contactId})}"
+									style="color: white; text-decoration: none; color: blue;"><i
+										class="fa-solid fa-pen-to-square"></i>Edit</a> | <!-- <button type="button" class="btn btn-danger"> -->
+									<a
+									th:href="@{/removeContact{contactId}(contactId=${contact.contactId})}"
+									style="color: white; text-decoration: none; color: blue;"><i
+										class="fa-solid fa-trash-can"></i> Delete</a> <a
+									th:href="@{/showContactDetail{contactId}(contactId=${contact.contactId})}"><i
+										class="far fa-eye" style="margin-left: 4px;"></i></a>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+					<!-- <div th:if="${totalPages>1}">
+						<div class="row">
+							<div class="col-sm-2">
+								<span th:each="i:${#numbers.sequence(1,totalPages)}"> <a
+									th:if="${currentPage!=i}" th:href="@{'/page/'+${i}}">[[${i}]]</a>
+									<span th:unless="${currentPage!=i}">[[${i}]]</span>
+								</span>
+							</div>
+							<div class="col-sm-2">
+							  <a th:if="${currentPage<totalPages}" th:href="@{'/page/'+${currentPage+1}}">Next</a>
+							  <span th:unless="${currentPage<totalPages}">Next</span>
+							</div>
+						</div>
+					</div> -->
+				</div>
+				</div>
 			</div>
+		   
+<nav aria-label="Page navigation example">
+  <ul class="pagination text-center" style="margin-left: 70%;">
+    <li th:if="${currentPage!=0}" class="page-item"><a class="page-link" th:href="@{'/contact/'+${currentPage-1}}">Previous</a></li>
+    <li  th:each="p:${#numbers.sequence(1,totalPages)}" class="page-item"><a th:if="${currentPage!=p}"class="page-link" th:href="@{'/contact/'+${p-1}}"><span th:text="${p}"></span></a></li>
+   
+    <li th:if="${currentPage+1<totalPages}" class="page-item"><a class="page-link" th:href="@{'/contact/'+${currentPage+1}}">Next</a></li>
+  </ul>
+</nav>
+	
+	
+	
+	
+	<!-- <nav aria-label="Page navigation example">
+  <ul class="pagination page">
+    <li th:if="${currentPage!=0}"  class="page-item"><a th:href="@{'/viewStudents/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
+    
+    <li  th:classappend="${currentPage==i-1?'active':''}" th:each ="i: ${#numbers.sequence(1,totalPages)}"  class="page-item"><a th:href="@{'/viewStudents/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+   
+    <li  th:if="${currentPage+1<=totalPages}"  class="page-item"><a th:href="@{'/viewStudents/'+${currentPage+1}}" class="page-link" href="#">Next</a></li>
+  </ul>
+</nav> -->
 		
+		 <script >
+      $(document).ready(()=>
+      {
+        $(".nav-link").removeClass("active");
+        $("#view-link").addClass("active");
+      });
+    </script>
+			
 		
 	</section>
 </body>

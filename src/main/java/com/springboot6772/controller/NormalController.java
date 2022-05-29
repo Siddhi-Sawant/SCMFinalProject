@@ -210,7 +210,7 @@ public class NormalController
 		    if(agreement)
 			 {
 		    	
-				session.setAttribute("message1", new Message("User Is Registered Successfully !","alert-success"));
+				session.setAttribute("message15", new Message("User Is Registered Successfully !","alert-success"));
 				user.setProfileImage("default.png");
 				this.userservice.addUser(user);
 			
@@ -219,7 +219,7 @@ public class NormalController
 			 }
 			 else
 			 {
-				 session.setAttribute("message1", new Message("User Is Not Registered !","alert-danger"));
+				 session.setAttribute("message15", new Message("User Is Not Registered !","alert-danger"));
 				 throw new Exception("kindly accept the term and conditions!");
 				
 			 }

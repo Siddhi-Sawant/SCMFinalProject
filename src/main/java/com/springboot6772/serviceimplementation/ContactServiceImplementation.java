@@ -30,19 +30,36 @@ public class ContactServiceImplementation implements ContactService
 		
 	}
 
+//	@Override
+//	public List<Contact> getAllContacts(int userId,String keyword)
+//	{
+//		 User  user=  this.userRepo.findById(userId).get();
+//	  
+//		  if(keyword !=null)
+//		  {
+//		     return contactRepo.findAll(keyword);  
+//		  
+//		  }
+//		  
+//		  
+//	    return user.getContacts();
+//	  
+//	}
+	
+	
 	@Override
-	public List<Contact> getAllContacts(int userId,String keyword)
+	public List<Contact> getAllContacts(int userId,String keyword,Pageable pageable)
 	{
-		 User  user=  this.userRepo.findById(userId).get();
+		 User  user1=this.userRepo.findById(userId).get();
 	  
 		  if(keyword !=null)
 		  {
-		     return contactRepo.findAll(keyword);  
+		     return contactRepo.findByNameContainingAndUser(keyword, user1, pageable);  
 		  
 		  }
 		  
 		  
-	    return user.getContacts();
+	    return user1.getContacts();
 	  
 	}
 
@@ -91,15 +108,15 @@ public class ContactServiceImplementation implements ContactService
 	}
  
 	//pagination
-	@Override
-	public Page<Contact> findPagination(int pageNo, int pageSize,int userId)
-	{
-	  
-       Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-	  // return this.contactRepo.findAll(pageable);
-       return this.contactRepo.findContactByUser(userId, pageable);
-       //return user.getContacts();
-	}
+//	@Override
+//	public Page<Contact> findPagination(int pageNo, int pageSize,int userId)
+//	{
+//	  
+//       Pageable pageable=PageRequest.of(pageNo-1, pageSize);
+//	  // return this.contactRepo.findAll(pageable);
+//       return this.contactRepo.findContactByUser(userId, pageable);
+//       //return user.getContacts();
+//	}
 
 	@Override
 	public Page<Contact> getAllContactsByUserId(int userId,Pageable pageable)
@@ -108,6 +125,13 @@ public class ContactServiceImplementation implements ContactService
 		
 		 return  contactRepo.findContactByUser(userId, pageable) ;
 		//return contactRepo.findAll(pageable);
+	}
+
+	@Override
+	public Contact checkPersonName(String personName) 
+	{
+		
+		return this.contactRepo.findContactBypersonName(personName);
 	}
 
 	

@@ -13,8 +13,8 @@
 		<div style=" margin-top: 13%; width: 60%;">
            <a href="/addcontact" style="text-decoration: none;  margin-left: 4%; font-size: large;"><i
 					class="fa-solid fa-circle-arrow-left"></i> Add Contact</a>
-			<form th:action="@{/search}" method="post" style="margin-left: 70%; width:100%;">
-				<div class="row" style="width: 120%;">
+			<!--  <form th:object="${contact2}" style="margin-left: 70%; width:100%;"> -->
+				<div class="row" style="width: 120%; margin-left: 70%;">
 				  
 				
 					<div class="col-sm-8">
@@ -22,11 +22,11 @@
 							placeholder="Search contact here" name="keyword" style="border-radius: 40px;">
 					</div>
 					<div class="col-sm-3">
-						<input type="submit" class="btn btn-primary" value="Search" >
+						<a  th:href="@{/search}"><input type="submit" class="btn btn-primary" value="Search" ></a>
 							
 					</div>
 				</div>
-			</form>
+		<!-- 	</form> -->
 			<!--  <form action="">
 		        <input  type="text" class="form-control" name="keyword" placeholder="Search contact here" style="border-radius: 40px;">	
 		        <input type="submit" value="Search"/ >  
@@ -105,7 +105,7 @@
 				</div>
 			</div>
 		   
-<nav aria-label="Page navigation example">
+<!-- <nav aria-label="Page navigation example">
   <ul class="pagination text-center">
     <li th:if="${currentPage!=0}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage-1}}">Previous</a></li>
     <li  th:each="p:${#numbers.sequence(1,totalPages)}" class="page-item"><a th:if="${currentPage!=p}"class="page-link" th:href="@{'/page/'+${p-1}}"><span th:text="${p}"></span></a></li>
@@ -113,20 +113,18 @@
     <li th:if="${currentPage+1<totalPages}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage+1}}">Next</a></li>
   </ul>
 </nav>
+	 -->
 	
 	
 	
-	
-	<!-- <nav aria-label="Page navigation example">
-  <ul class="pagination page">
-    <li th:if="${currentPage!=0}"  class="page-item"><a th:href="@{'/viewStudents/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
-    
-    <li  th:classappend="${currentPage==i-1?'active':''}" th:each ="i: ${#numbers.sequence(1,totalPages)}"  class="page-item"><a th:href="@{'/viewStudents/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+	<nav aria-label="Page navigation example">
+  <ul class="pagination text-center">
+    <li th:if="${currentPage!=0}" class="page-item"><a class="page-link" th:href="@{'/viewContacts/'+${currentPage-1}}">Previous</a></li>
+    <li  th:each="p:${#numbers.sequence(1,totalPages)}" class="page-item"><a th:if="${currentPage!=p}"class="page-link" th:href="@{'/viewContacts/'+${p-1}}"><span th:text="${p}"></span></a></li>
    
-    <li  th:if="${currentPage+1<=totalPages}"  class="page-item"><a th:href="@{'/viewStudents/'+${currentPage+1}}" class="page-link" href="#">Next</a></li>
+    <li th:if="${currentPage+1<totalPages}" class="page-item"><a class="page-link" th:href="@{'/viewContacts/'+${currentPage+1}}">Next</a></li>
   </ul>
-</nav> -->
-	
+</nav>
 	
 		   
 

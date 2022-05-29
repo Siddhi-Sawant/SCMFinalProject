@@ -3,6 +3,8 @@ package com.springboot6772.serviceimplementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.springboot6772.entity.Admin;
@@ -30,6 +32,12 @@ public class AdminServiceImplementation implements AdminService
 	{
 		
 		return adminRepo.findByadminNameAndPassword(adminName, password);
+	}
+	@Override
+	public Page<Contact> getAllContacts(int userId, Pageable pageable) 
+	{
+		// TODO Auto-generated method stub
+		return this.adminRepo.findContactByUser(userId, pageable);
 	}
 	
 	

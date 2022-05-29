@@ -12,7 +12,7 @@ public interface ContactService
 {
   public void addContact(Contact contact);
   
-  public List<Contact> getAllContacts(int userId,String keyword);
+  public List<Contact> getAllContacts(int userId,String keyword,Pageable pageable);
   
   
    public List<Contact>  getContactByUserId(int userId);
@@ -28,12 +28,13 @@ public interface ContactService
   //delete contact
    public void deleteContactByContactId(int contactId);
   
-  //pagination
-   
-   Page<Contact> findPagination(int pageNo,int pageSize,int userId);
+ 
    
    
    //Pagination1
    public Page<Contact> getAllContactsByUserId( int userId ,Pageable pageable);
+   
+   //search
+   public Contact checkPersonName(String personName);
    
   }

@@ -74,7 +74,7 @@
 .sidebar a:hover
 {
 	background-color:#F0F8FF;
-	color:black;
+	color:black!important;
 }
 
 .content
@@ -102,5 +102,17 @@
 }
 .active
 {
-	color:red!important;
+	background-color:gray;
+	 color: black!important;
+}
+
+.card-body13
+{
+	
+	margin-left:50%;
+	width: 170%;
+	background-color:rgb(243, 243, 243);
+	border-radius: 30px;
+	padding-top:10px;
+	box-shadow: 5px 5px 10px;
 }

@@ -9,7 +9,9 @@
 <body>
  <section>
    <div class="title1">
-     
+     <a href="/dashhome" style="text-decoration: none;  margin-left: 4%; font-size: large;"><i
+					class="fa-solid fa-circle-arrow-left"></i> Back</a>
+    
        <div th:if="${session.message}" th:classappend="${session.message.messageType}" class="alert" role="alert" style="margin-left: 20%;">
                    <p th:text="${session.message.content}"></p>
                    <th:block th:text="${#session.removeAttribute('message')}"/>
@@ -54,6 +56,15 @@
 </nav>
 </div>
   </div>
+  
+   <script >
+      $(document).ready(()=>
+      {
+        $(".nav-link").removeClass("active");
+        $("#view-link").addClass("active");
+      });
+    </script>
+  
  </section>
 </body>
 </html>

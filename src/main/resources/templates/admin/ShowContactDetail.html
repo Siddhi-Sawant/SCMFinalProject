@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="user/base::Layout(~{::section})">
+	th:replace="admin/dashbase::Layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
 <title>View Profile</title>
@@ -9,13 +9,14 @@
 	<section>
 		<div class="container">
            <h2 style="margin-top: 23%;"></h2>  
-			<a href="/viewContacts" style="font-size: large; text-decoration: none;"><i class="fa-solid fa-circle-arrow-left"></i> Back</a>
-		
-				<label style=" margin-left:120%; font-size:xx-large;font-weight:500;">Details </label>
+           <form th:object="${user1}">
+			<a th:href="@{/contact{userId}(userId=${user1.userId})}" style="font-size: large; text-decoration: none;"><i class="fa-solid fa-circle-arrow-left"></i> Back</a>
+		   </form>
+				<label style="margin-top:1%; margin-left:120%; font-size:xx-large;font-weight:500;">Details </label>
 				
 					
 			<div class="card-body13">
-			<!-- <a href="#" style="height: 20px; width: 20px;"><img src="../img/message.png" style="height:9%; width:9%; border-radius: 50%;margin-left: 87%;margin-top: 1%; background-color: white;"></a>
+			<!-- <a href="#" style="height: 20px; width: 20px;"><img src="../img/message.png" style="height:9%; width:9%; border-radius: 50%;margin-left: 87%;margin-top:2%; background-color: white;"></a>
 			 -->
 				 <div class="table text-center ">
 				 <form th:object="${contact1}">
