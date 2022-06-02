@@ -69,11 +69,11 @@ public class NormalController
 	@GetMapping("/")
 	public String home(Model model)
 	{
-		Admin admin=new Admin();
-		admin.setAdminName("Admin");
-		admin.setPassword("Admin");
-		this.adminservice.addAdmin(admin);
-		
+//		Admin admin=new Admin();
+//		admin.setAdminName("Admin");
+//		admin.setPassword("Admin");
+//		this.adminservice.addAdmin(admin);
+//		
 		model.addAttribute("title","Smart Contact Manager");
 		return "home";
 	}

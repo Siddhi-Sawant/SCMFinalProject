@@ -110,6 +110,7 @@ public class UserController
 				System.out.println("File is uploaded");
 			}
 			user1.getContacts().add(contact);
+		
 			
 			contact.setUsers(user1);
 			this.contactservice.addContact(contact);
@@ -130,10 +131,10 @@ public class UserController
 	@GetMapping("/viewContacts")
 	public String viewContacts(Model model,HttpSession session)
 	{
-		int userId=(int) session.getAttribute("userId");
-		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
-		model.addAttribute("listContact",contactDetails);
-//		return "user/ViewContacts";
+//		int userId=(int) session.getAttribute("userId");
+//		List<Contact> contactDetails=contactservice.getContactByUserId(userId);	
+//		model.addAttribute("listContact",contactDetails);
+////		return "user/ViewContacts";
 		return showContacts(model, 0, session);
 	}
 	
